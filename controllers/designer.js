@@ -80,13 +80,14 @@ module.exports = function(app, models){
     var fs = require('fs');
     var url = require('url');
     var http = require('http');
-    var exec = require('child_process').exec;
 
     // App variables
     var designId = req.body.id;
     var fileURL = req.body.url;
     var DOWNLOAD_DIR = './attachments/images/';
 
+    // Create attachments directory.
+    var exec = require('child_process').exec;
     var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
     var child = exec(mkdir, function(err, stdout, stderr) {
       if (err) throw err;
