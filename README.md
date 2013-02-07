@@ -34,7 +34,7 @@ This part would be written later.
 Licenses
 --------
 
-moInk project is under Creative Commons Attribution-ShareAlike 3.0 Unported license (http://creativecommons.org/licenses/by-sa/3.0/), which means:
+moInk project is under [Creative Commons Attribution-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-sa/3.0/), which means:
 
 You are free
 - to Share — to copy, distribute and transmit the work
