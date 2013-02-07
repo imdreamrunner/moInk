@@ -1,0 +1,164 @@
+html{
+  height: 100%;
+}
+
+body{
+  height: 100%;
+  background: url("../images/dust_dark.png");
+}
+
+.transition-opacity{
+  transition:opacity 0.5s linear;
+  -webkit-transition:opacity 0.5s linear;
+}
+
+#header{
+  position: absolute;
+  width: 100%;
+  background: url("../images/dust.png");
+  height: 100px;
+  border-bottom: 1px solid #ccc0b2;
+  box-shadow: 0 0 10px #ccc0b2;
+  opacity: 0.92;
+  .transition-opacity;
+  &:hover{
+    opacity: 0.96;
+  }
+  z-index: 12;
+}
+
+#header .logo{
+  float: left;
+  display: block;
+  height: 100px;
+  width: 197px;
+  text-indent: -9999px;
+  background: url("../images/logo.png") center no-repeat;
+  opacity: 0.8;
+  .transition-opacity;
+  &:hover{
+    opacity: 1;
+  }
+}
+
+#header .sep{
+  float: left;
+  width: 1px;
+  height: 100px;
+  background: url("../images/header_separator.png");
+  opacity: 0.6;
+}
+
+#header .nav-button{
+  float: left;
+  width: 270px;
+  height: 100px;
+  text-align: center;
+  &:hover .hover, &.current .hover{
+    opacity: 1;
+  }
+}
+
+#header .nav-button .hover{
+  .transition-opacity;
+  opacity: 0;
+  position: absolute;
+  width: 270px;
+  height: 100px;
+  background-image: url("../images/header-gradient.png");
+  z-index: 13;
+}
+
+#header .nav-button a{
+  position: absolute;
+  z-index: 14;
+  display: block;
+  width: 270px;
+  height: 100px;
+  opacity: 0.7;
+  .transition-opacity;
+  text-align: center;
+  line-height: 160px;
+  color: #666;
+  &:hover{
+    opacity: 1;
+    text-decoration: none;
+  }
+}
+
+#header .explore a{
+  background: url("../images/explore.png") center 8px no-repeat;
+}
+
+#header .designer a{
+  background: url("../images/designer.png") center 10px no-repeat;
+}
+
+#user-box{
+  float: left;
+  width: 200px;
+  height: 100px;
+}
+
+.login-box{
+  height: 80px;
+  padding: 10px 50px;
+}
+
+.login-box div{
+  padding: 5px 0;
+  width: 100px;
+}
+
+.user-box{
+  height: 80px;
+  padding: 25px 30px;
+}
+
+.user-box div{
+  text-align: center;
+  width: 140px;
+  height: 25px;
+  line-height: 25px;
+}
+
+.user-box .user-name{
+  color: #363;
+
+}
+
+#single-page{
+  background: url("../images/dust.png");
+  width: 700px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  border: 1px solid #ccc0b2;;
+  box-shadow: 0 3px 6px #ccc0b2;
+}
+
+#single-page .logo{
+  display: block;
+  height: 80px;
+  width: 80px;
+  text-indent: -9999px;
+  background: url("../images/logo.png") center no-repeat;
+  opacity: 0.8;
+  .transition-opacity;
+  &:hover{
+    opacity: 1;
+  }
+}
+
+#main{
+  background: #f1f1f1;
+  border: 1px solid #ddd3c7;
+  border-bottom: none;
+  border-top: none;
+  box-shadow: 0 0 8px #ddd3c7;
+  min-height: 100%;
+}
+
+.header-offset{
+  width: 100%;
+  height: 120px;
+}

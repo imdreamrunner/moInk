@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>Log in - moInk</title>
+  <% include ../public/stylesheets.ejs %>
+</head>
+<div id="single-page">
+  <div class="row">
+    <div class="span2">
+      <a class="logo" href="/">moInk</a>
+    </div>
+    <div class="span7">
+      <div class="pull-right">
+        New here? <a href="/user/signup" class="btn">Sign up</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span5">
+      <form>
+        <legend>Login to moInk</legend>
+        <div class="row">
+          <div class="span4">
+            <input type="text" id="login-email" placeholder="Email" class="input-block-level" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="span4">
+            <input type="password" id="login-password" placeholder="Password" class="input-block-level" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="span4">
+            <input type="button" id="login-submit" class="btn" value="Login" />
+            <span class="help-inline"><a href="#">Forget your password?</a></span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<% include ../public/javascripts.ejs %>
+<script src="/libraries/md5.js"></script>
+<script src="/javascripts/login.js"></script>
+</body>
+</html>

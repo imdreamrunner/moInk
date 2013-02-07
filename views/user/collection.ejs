@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Designer - moInk</title>
+  <% include ../public/stylesheets.ejs %>
+  <link rel='stylesheet' href='/stylesheets/collection.css'/>
+</head>
+<body>
+<% var currentPage = 'designer'; %>
+<% include ../public/header.ejs %>
+<div id="main" class="container">
+  <div class="header-offset"></div>
+  <div class="row">
+    <div class="span4">
+      <h2>My Collection </h2>
+    </div>
+    <div class="span8">
+      <div class="input-append">
+        <input class="span4" id="create-new-title" type="text" placeholder="Please enter title here." />
+        <a id="create-new" href="javascript:;" class="btn">Create a new design!</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8">
+      <% for (var index in collection){ %>
+        <p><a href="/designer/<%=collection[index]._id%>" target="_blank"><%=collection[index].title%></a></p>
+      <% } %>
+    </div>
+  </div>
+
+</div>
+<% include ../public/javascripts.ejs %>
+<script src="/javascripts/collection.js"></script>
+</body>
+</html>

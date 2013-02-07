@@ -1,0 +1,233 @@
+@import "common";
+@import "spectrum";
+@import "moBox";
+
+body{
+  background: url('../images/noisy_grid.png');
+  font-family: 'Nunito';
+}
+
+#designer{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#panel{
+  position: absolute;
+  background: #FFF;
+  box-shadow: 0 0 6px #656260;
+}
+
+#top-menu {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  background: url('../images/top-menu.png');
+  box-shadow: 0 0 6px #656260;
+  font-size: 14px;
+  border-bottom: 1px solid #858280;
+  z-index: 10001;
+}
+
+#top-menu ul li {
+  display: block;
+  list-style: none;
+  float: left;
+}
+
+#top-menu a {
+  display: block;
+  height: 30px;
+  line-height: 34px;
+  color: #555250;
+  text-decoration: none;
+  padding: 0 20px;
+}
+
+#top-menu a:hover, #top-menu a.selected {
+  background: url('../images/top-menu-light.png');
+  border-left: 1px solid #858280;
+  border-right: 1px solid #858280;
+  padding: 0 19px;
+}
+
+#top-menu-object-list {
+  width: 101px;
+}
+
+#object-list {
+  position: absolute;
+  width: 140px;
+  height: 100%;
+  right: 0;
+  background: url('../images/dust.png');
+  border-left: 1px solid #c5c2c0;
+  box-shadow: 0 0 6px #a5a2a0;
+}
+
+#ul-object-list {
+  padding-top: 31px;
+}
+
+#ul-object-list li {
+  list-style: none;
+  margin-top: -1px;
+}
+
+.object-list-item {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #C5C2C0;
+  border-left: none;
+  border-right: none;
+}
+
+.object-list-item .object-list-icon{
+  position: absolute;
+  margin: 7px;
+  height: 16px;
+  width: 16px;
+  cursor: move;
+}
+
+.object-list-item.image .object-list-icon{
+  background: url('../images/decoration_16.png') center no-repeat;
+}
+
+.object-list-name{
+  font-size: 16px;
+  font-family: 'Nunito light';
+  color: #555250;
+  line-height: 20px;
+  height: 20px;
+  padding: 5px 0 5px 30px;
+  cursor: default;
+}
+
+.object-list-item:hover, .object-list-item.hover {
+  background: url('../images/object-list-selected.png');
+}
+
+.object-list-item.selected {
+  height: 40px;
+  background: url('../images/object-list-selected.png');
+}
+
+.object-list-item.dragging{
+  background: url('../images/object-list-selected.png');
+}
+
+.object-list-item.selected .object-list-settings{
+  display: block;
+  margin: -4px 0 0 15px;
+}
+
+.object-list-settings {
+  display: none;
+}
+
+.object-list-settings a {
+  float: left;
+  margin-left: 10px;
+  .small-duck-button;
+}
+
+.object-list-hide {
+  width: 25px;
+}
+
+.object-list-delete {
+  width: 30px;
+}
+
+.edit-item-name{
+  font-size: 16px;
+  font-family: 'Nunito light';
+  color: #555250;
+  line-height: 16px;
+  height: 20px;
+  cursor: text;
+  border: none;
+  position: absolute;
+  margin: -26px 0 0 30px;
+  padding: 0;
+  width: 100px;
+  outline: none;
+  display: none;
+}
+
+#object-hover, #object-selected{
+  position: absolute;
+  border: 1px dashed #C5C2C0;
+  z-index: 1000;
+}
+
+.panel-handler{
+  position: absolute;
+  pointer-events: all;
+  background: #FFF;
+  opacity:0;
+/* the above two line is to fix IE's bug with mouse event. */
+}
+
+.top-handler{
+  height: 5px;
+  width: 100%;
+  cursor: ns-resize;
+  .panel-handler
+}
+.right-handler{
+  width: 5px;
+  height: 100%;
+  right: 0px;
+  cursor: ew-resize;
+  .panel-handler
+}
+.bottom-handler{
+  height: 5px;
+  width: 100%;
+  bottom: 0px;
+  cursor: ns-resize;
+  .panel-handler
+}
+.left-handler{
+  width: 5px;
+  height: 100%;
+  cursor: ew-resize;
+  .panel-handler
+}
+.right-top-handler{
+  height: 5px;
+  width: 5px;
+  right: 0px;
+  cursor: nesw-resize;
+  .panel-handler
+}
+.right-bottom-handler{
+  height: 5px;
+  width: 5px;
+  right: 0px;
+  bottom: 0px;
+  cursor: nwse-resize;
+  .panel-handler
+}
+
+.left-top-handler{
+  height: 5px;
+  width: 5px;
+  cursor: nwse-resize;
+  .panel-handler
+}
+.left-bottom-handler{
+  height: 5px;
+  width: 5px;
+  bottom: 0px;
+  cursor: nesw-resize;
+  .panel-handler
+}
+
+@import "top-bar";
+@import "top-bar.edit.less";
+@import "top-bar.image.less";
+@import "top-bar.wizard.less";

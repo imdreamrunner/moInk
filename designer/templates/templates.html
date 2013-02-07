@@ -1,0 +1,264 @@
+
+<script type="text/template" id="resize-handler">
+  <div class="top-handler"></div>
+  <div class="right-handler"></div>
+  <div class="bottom-handler"></div>
+  <div class="left-handler"></div>
+  <div class="right-top-handler"></div>
+  <div class="right-bottom-handler"></div>
+  <div class="left-top-handler"></div>
+  <div class="left-bottom-handler"></div>
+</script>
+<script type="text/template" id="top-menu-template">
+  <li><a class="top-menu-wizard" href="javascript:">DESIGN WIZARD</a></li>
+  <li><a class="top-menu-image" href="javascript:">IMAGE</a></li>
+  <li><a class="top-menu-text" href="javascript:">TEXT</a></li>
+  <li><a class="top-menu-decoration" href="javascript:">DECORATION</a></li>
+</script>
+<script type="text/template" id="top-menu-model-template">
+  <li><a class="top-menu-wizard" href="javascript:">DESIGN WIZARD</a></li>
+  <li><a class="top-menu-image" href="javascript:">IMAGE</a></li>
+  <li><a class="top-menu-text" href="javascript:">TEXT</a></li>
+  <li><a class="top-menu-decoration" href="javascript:">DECORATION</a></li>
+  <li><a class="top-menu-edit" href="javascript:">EDIT <%= type.toUpperCase() %></a></li>
+</script>
+<script type="text/template" id="top-menu-wizard-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Templates
+      </div>
+      <div class="top-bar-block">
+        <div class="top-bar-template-list">
+          <div class="top-bar-template-item">
+            <div class="top-bar-template-pic"><img src="_devimg/design_a.jpg"></div>
+            <div class="top-bar-template-title">Design A</div>
+          </div>
+          <div class="top-bar-template-item">
+            <div class="top-bar-template-pic"><img src="_devimg/design_b.jpg"></div>
+            <div class="top-bar-template-title">Design B</div>
+          </div>
+          <div class="top-bar-template-item">
+            <div class="top-bar-template-pic"><img src="_devimg/design_c.jpg"></div>
+            <div class="top-bar-template-title">Design C</div>
+          </div>
+          <div class="top-bar-template-item">
+            <div class="top-bar-template-pic"><img src="_devimg/design_d.jpg"></div>
+            <div class="top-bar-template-title">Design D</div>
+          </div>
+        </div>
+      </div>
+    </li><li>
+    <input class="to-json" value="To JSON" type="button" />
+    <input class="save" value="Save" type="button" />
+  </li>
+  </ul>
+</script>
+<script type="text/template" id="top-menu-image-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Default
+      </div>
+      <div class="top-bar-block">
+        <input class="add-image" type="button" value="Add Image" />
+      </div>
+    </li>
+  </ul>
+</script>
+<script type="text/template" id="top-menu-text-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Default
+      </div>
+      <div class="top-bar-block">
+        <input class="add-text" type="button" value="Add Text" />
+      </div>
+    </li>
+  </ul>
+</script>
+<script type="text/template" id="top-menu-decoration-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Add Shapes
+      </div>
+      <div class="top-bar-block">
+        <input class="add-whole" type="button" value="Whole Pic" />
+        <input class="add-rectangle" type="button" value="Rectangle" />
+      </div>
+    </li>
+  </ul>
+</script>
+<script type="text/template" id="top-menu-edit-image-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Position
+      </div>
+      <div class="top-bar-block">
+        <div class="top-control">
+          <label class="small">Left:</label>
+          <div class="control">
+            <input class="x" size="4" />
+          </div>
+        </div>
+        <div class="top-control">
+          <label class="small">Top:</label>
+          <div class="control">
+            <input class="y" size="4" />
+          </div>
+        </div>
+      </div>
+    </li><!-- Be careful not to leave space between <li>s. --><li>
+    <div class="top-bar-title">
+      Size
+    </div>
+    <div class="top-bar-block">
+      <div class="top-control">
+        <label class="medium">Width:</label>
+        <div class="control">
+          <input class="width" size="4" />
+        </div>
+      </div>
+      <div class="top-control">
+        <label class="medium">Height:</label>
+        <div class="control">
+          <input class="height" size="4" />
+        </div>
+      </div>
+    </div>
+  </li>
+  </ul>
+</script>
+<script type="text/template" id="top-menu-edit-text-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Position
+      </div>
+      <div class="top-bar-block">
+        <div class="top-control">
+          <label class="small">Left:</label>
+          <div class="control">
+            <input class="x" size="4" />
+          </div>
+        </div>
+        <div class="top-control">
+          <label class="small">Top:</label>
+          <div class="control">
+            <input class="y" size="4" />
+          </div>
+        </div>
+      </div>
+    </li><li>
+    <div class="top-bar-title">
+      Font
+    </div>
+    <div class="top-bar-block">
+      <div class="top-control">
+        <label>Font Family:</label>
+        <div class="control">
+          <input class="fontFamily" size="12" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="top-control">
+          <label>Size:</label>
+          <div class="control">
+            <input class="fontSize" size="2" />
+          </div>
+        </div>
+        <div class="top-control">
+          <label>Color:</label>
+          <div class="control">
+            <input class="color" size="7" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </li><li>
+    <div class="top-bar-title">
+      Text
+    </div>
+    <div class="top-bar-block">
+      <div class="text-container">
+        <textarea class="text"></textarea>
+      </div>
+    </div>
+  </li>
+  </ul>
+</script>
+<script type="text/template" id="top-menu-edit-shape-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Position
+      </div>
+      <div class="top-bar-block">
+        <div class="top-control">
+          <label class="small">Left:</label>
+          <div class="control">
+            <input class="x" size="4" />
+          </div>
+        </div>
+        <div class="top-control">
+          <label class="small">Top:</label>
+          <div class="control">
+            <input class="y" size="4" />
+          </div>
+        </div>
+      </div>
+    </li><li>
+    <div class="top-bar-title">
+      Size
+    </div>
+    <div class="top-bar-block">
+      <div class="top-control">
+        <label class="medium">Width:</label>
+        <div class="control">
+          <input class="width" size="4" />
+        </div>
+      </div>
+      <div class="top-control">
+        <label class="medium">Height:</label>
+        <div class="control">
+          <input class="height" size="4" />
+        </div>
+      </div>
+    </div>
+  </li><li>
+    <div class="top-bar-title">
+      Basic Settings
+    </div>
+    <div class="top-bar-block">
+      <div class="top-control">
+        <label>Shape:</label>
+        <div class="control">
+          <select class="shape">
+            <option value="rect">Rectangle</option>
+          </select>
+        </div>
+      </div>
+      <div class="top-control">
+        <label>Color:</label>
+        <div class="control">
+          <input class="color" size="7" />
+        </div>
+      </div>
+    </div>
+  </li>
+  </ul>
+</script>
+<script type="text/template" id="object-list-item-template">
+  <div class="object-list-item image">
+    <div class="object-list-icon"></div>
+    <div class="object-list-name"><%= name %></div>
+    <input class="edit-item-name" type="text" value="<%= name %>" />
+    <div class="object-list-settings">
+      <a href="javascript:" class="object-list-hide">hide</a>
+      <a href="javascript:" class="object-list-delete">delete</a>
+    </div>
+  </div>
+</script>
