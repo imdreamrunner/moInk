@@ -43,13 +43,15 @@ body{
   color: #555250;
   text-decoration: none;
   padding: 0 20px;
-}
-
-#top-menu a:hover, #top-menu a.selected {
-  background: url('../images/top-menu-light.png');
-  border-left: 1px solid #858280;
-  border-right: 1px solid #858280;
-  padding: 0 19px;
+  &:hover{
+    background: url('../images/top-menu-light.png');
+  }
+  &.selected{
+    background: url('../images/top-menu-light.png');
+    border-left: 1px solid #858280;
+    border-right: 1px solid #858280;
+    padding: 0 19px;
+  }
 }
 
 #top-menu-object-list {

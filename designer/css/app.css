@@ -557,7 +557,9 @@ body {
   text-decoration: none;
   padding: 0 20px;
 }
-#top-menu a:hover,
+#top-menu a:hover {
+  background: url('../images/top-menu-light.png');
+}
 #top-menu a.selected {
   background: url('../images/top-menu-light.png');
   border-left: 1px solid #858280;
@@ -797,10 +799,11 @@ body {
   background: url("../images/top-bar-title.png") bottom center no-repeat;
 }
 .top-bar-block {
-  height: 60px;
+  height: 54px;
   font-size: 13px;
   font-family: 'Nunito light';
   color: #555250;
+  padding: 3px 0;
 }
 .top-bar-block input,
 .top-bar-block select,
@@ -811,7 +814,7 @@ body {
   outline: none;
 }
 .top-control {
-  height: 30px;
+  height: 26px;
   padding: 0 8px;
 }
 .row > .top-control {
@@ -824,12 +827,12 @@ body {
   padding-right: 8px;
 }
 .top-control label {
-  height: 30px;
-  line-height: 30px;
+  height: 26px;
+  line-height: 26px;
   display: inline-block;
 }
 .top-control .control {
-  margin: 5px 5px 5px 0;
+  margin: 3px 5px 3px 0;
   display: inline-block;
   height: 20px;
 }
@@ -856,9 +859,9 @@ body {
 }
 .text-container .text {
   font-family: 'Nunito' !important;
-  height: 50px;
+  height: 44px;
   margin: 0;
-  padding: 0 10px;
+  padding: 0 4px;
   border: 1px solid #C5C2C0;
   border-radius: 9px;
   width: 280px;
@@ -868,10 +871,9 @@ body {
   max-height: 200px;
 }
 .top-bar-template-item {
-  height: 54px;
+  height: 52px;
   float: left;
   padding: 1px 2px;
-  margin: 2px 0;
   cursor: pointer;
 }
 .top-bar-template-item:hover {
@@ -887,6 +889,6 @@ body {
   font-size: 11px;
   color: #555250;
   text-align: center;
-  height: 14px;
-  line-height: 14px;
+  height: 12px;
+  line-height: 12px;
 }

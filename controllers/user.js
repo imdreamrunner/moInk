@@ -43,10 +43,14 @@ module.exports = function(app, models){
     userInfo.password = req.body.password;
 
     models.user.logIn(userInfo, function(result){
-      var currentUser = result.userInfo
-      delete currentUser.password; // There is no need to store user's password in session.
-      req.session.user = currentUser;
-      res.json(result);
+      if(result.err){
+        res.json(result);
+      }else{
+        var currentUser = result.userInfo
+        delete currentUser.password; // There is no need to store user's password in session.
+        req.session.user = currentUser;
+        res.json(result);
+      }
     });
   });
 

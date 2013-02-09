@@ -4,7 +4,7 @@ module.exports = function(app, models){
   app.get('/attachments/images/:filename', function(req, res){
     var fs = require('fs');
     var Canvas = require('canvas');
-    //var ATTACHMENT_DIR =  __dirname + '/../attachments/images/';
+
     var ATTACHMENT_DIR =  './attachments/images/';
 
     console.log(ATTACHMENT_DIR + req.params.filename);
