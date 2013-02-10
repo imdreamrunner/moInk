@@ -175,6 +175,20 @@ var TopBarView = Backbone.View.extend({
         canvas: true
       });
     });
+
+    var inseartImage = function(res){
+      var attachment = res.attachment;
+      console.log(attachment);
+      var newImage = new PanelObject({
+        name: attachment.url.split('/').pop().split('.')[0],
+        type: 'image',
+        attachment: attachment._id + '.' + attachment.url.split('.').pop()
+      });
+      _this.addObject(newImage);
+      imageBox.close();
+
+    };
+
     imageBox.$el.find('.insert-image').click(function(){
       $.ajax(DESIGNER_URL + 'image/getFromURL', {
         type: 'POST',
@@ -182,18 +196,21 @@ var TopBarView = Backbone.View.extend({
           id: designId,
           url: imageBox.$el.find('.url').val()
         },
-        success: function(result){
-          var attachment = result.attachment;
-          console.log(attachment);
-          var newImage = new PanelObject({
-            name: attachment.url.split('/').pop().split('.')[0],
-            type: 'image',
-            attachment: attachment._id + '.' + attachment.url.split('.').pop()
-          });
-          _this.addObject(newImage);
-          imageBox.close();
-        }
+        success: inseartImage
       });
+    });
+    imageBox.$el.find('.uploadForm').submit(function(){
+      $(this).ajaxSubmit({
+        url: DESIGNER_URL + 'image/upload',
+        data: {
+          id: designId
+        },
+        error: function(xhr) {
+          console.log('Error: ' + xhr.status);
+        },
+        success: inseartImage
+      });
+      return false;
     });
     imageBox.show();
   },

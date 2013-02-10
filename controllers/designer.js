@@ -86,13 +86,6 @@ module.exports = function(app, models){
     var fileURL = req.body.url;
     var DOWNLOAD_DIR = './attachments/images/';
 
-    // Create attachments directory.
-    var exec = require('child_process').exec;
-    var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
-    var child = exec(mkdir, function(err, stdout, stderr) {
-      if (err) throw err;
-    });
-
     //download_file_httpget(file_url);
 
     fileInfo = {
@@ -124,6 +117,41 @@ module.exports = function(app, models){
               attachment: attachment
             });
           });
+      });
+    });
+  });
+  app.post('/designer/image/upload', function(req, res){
+    /*
+     * modified from http://markdawson.tumblr.com/post/18359176420/asynchronous-file-uploading-using-express-and-node-js
+     */
+    // Dependencies
+    var fs = require('fs');
+
+    // App variables
+    var UPLOAD_DIR = './attachments/images/';
+    var designId = req.body.id;
+    var fileURL = req.files.userPhoto.name;
+
+    fileInfo = {
+      designId: designId,
+      url: 'file://' + fileURL
+    }
+
+    models.design.addAttachment(fileInfo, function(err, attachment){
+      var attachmentId = attachment._id;
+      var fileName = attachmentId + '.' + req.files.userPhoto.name.split('.').pop();
+      fs.rename(req.files.userPhoto.path, UPLOAD_DIR + fileName, function(fsErr){
+        if(fsErr){
+          res.json({
+            err: 1,
+            info: 'Ah crap! Something bad happened'
+          });
+        }else{
+          res.json({
+            err: 0,
+            attachment: attachment
+          });
+        }
       });
     });
   });

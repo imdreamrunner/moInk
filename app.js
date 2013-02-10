@@ -36,6 +36,17 @@ var mongoose = require('./db')();
 var models = require('./models')(mongoose);
 require('./controllers')(app, models);
 
+/*
+ * create folders
+ */
+// Create attachments directory.
+var exec = require('child_process').exec;
+var mkdir = 'mkdir -p ./attachments/images/';
+var child = exec(mkdir, function(err, stdout, stderr) {
+  if (err) throw err;
+});
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
