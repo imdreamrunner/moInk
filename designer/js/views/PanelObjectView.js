@@ -28,6 +28,9 @@ var PanelObjectView = Backbone.View.extend({
         if(!this.imageObject){
           this.imageObject = new Image();
           this.imageObject.onload = this.drawImage;
+          this.imageObject.onerror = function(){
+            console.log('cannot load image');
+          }
           if(this.model.get('attachment')){
             this.imageObject.src = '/attachments/images/' + this.model.get('attachment');
             console.log('/attachments/images/' + this.model.get('attachment'));
