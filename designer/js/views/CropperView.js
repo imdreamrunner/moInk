@@ -2,7 +2,7 @@ var CropperView = Backbone.View.extend({
   el: '<div id="object-cropper">',
 
   initialize: function(){
-    _.bindAll(this, 'mouseDown', 'doCrop', 'endCrop');
+    _.bindAll(this, 'mouseDown', 'doMove', 'endMove', 'doCrop', 'endCrop');
     this.$el.html($('#crop-handler').html());
     $('#panel-float').append(this.$el);
     this.render();
@@ -34,6 +34,7 @@ var CropperView = Backbone.View.extend({
     e.originalEvent.preventDefault();
     var className = e.target.className;
     if(className !== ''){
+      /* cropping */
       this.crop = className;
       this.startPageX = e.pageX;
       this.startPageY = e.pageY;
@@ -49,7 +50,47 @@ var CropperView = Backbone.View.extend({
       $(document.body).on('mouseup', this.endCrop);
     }else{
       /* dragging */
+      var width = this.model.get('width');
+      var sWidth = this.model.get('sWidth');
+      var height = this.model.get('height');
+      var sHeight = this.model.get('sHeight');
+      this.startPageX = e.pageX;
+      this.startPageY = e.pageY;
+      this.originSX = this.model.get('sX');
+      this.originSY = this.model.get('sY');
+      this.widthScale = width / sWidth;
+      this.heightScale = height / sHeight;
+      $(document.body).on('mousemove', this.doMove);
+      $(document.body).on('mouseup', this.endMove);
     }
+  },
+
+  /* for move */
+  endMove: function(e){
+    $(document.body).off('mousemove', this.doMove);
+    $(document.body).off('mouseup', this.endMove);
+  },
+
+  doMove: function(e){
+    var sX, sY;
+    sX = parseInt(this.originSX - (e.pageX - this.startPageX) / (this.widthScale * designer.scale));
+    if(sX < 0){
+      sX = 0;
+    }
+    if(sX > (this.model.get('_originalWidth') - this.model.get('sWidth'))){
+      sX = this.model.get('_originalWidth') - this.model.get('sWidth');
+    }
+    sY = parseInt(this.originSY - (e.pageY - this.startPageY) / (this.heightScale * designer.scale));
+    if(sY < 0){
+      sY = 0;
+    }
+    if(sY > (this.model.get('_originalHeight') - this.model.get('sHeight'))){
+      sY = this.model.get('_originalHeight') - this.model.get('sHeight');
+    }
+    this.model.set({
+      sX: sX,
+      sY: sY
+    });
   },
 
   /* for crop */
