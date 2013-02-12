@@ -943,6 +943,7 @@ body {
 }
 #object-cropper .top-handler {
   left: 50%;
+  margin-left: -4px;
   cursor: ns-resize;
   position: absolute;
   pointer-events: all;
@@ -953,6 +954,7 @@ body {
 }
 #object-cropper .right-handler {
   top: 50%;
+  margin-top: -4px;
   right: 0px;
   cursor: ew-resize;
   position: absolute;
@@ -964,6 +966,7 @@ body {
 }
 #object-cropper .bottom-handler {
   left: 50%;
+  margin-left: -4px;
   bottom: 0px;
   cursor: ns-resize;
   position: absolute;
@@ -975,6 +978,7 @@ body {
 }
 #object-cropper .left-handler {
   top: 50%;
+  margin-top: -4px;
   cursor: ew-resize;
   position: absolute;
   pointer-events: all;

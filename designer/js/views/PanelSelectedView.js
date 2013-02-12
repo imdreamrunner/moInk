@@ -22,8 +22,8 @@ var PanelSelectedView = PanelHoverView.extend({
 
   selectedRender: function(){
     if(this.model.get('_cropping')){
+      this.$el.hide();
       if(!this.cropper){
-        this.render();
         this.cropper = new CropperView({model: this.model});
       }
     }else{
@@ -31,6 +31,7 @@ var PanelSelectedView = PanelHoverView.extend({
         this.cropper.close();
         delete this.cropper;
       }
+      this.$el.show();
       this.render();
     }
   },

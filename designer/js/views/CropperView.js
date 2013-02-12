@@ -79,11 +79,12 @@ var CropperView = Backbone.View.extend({
       sY = parseInt(sY + move / heightScale);
       if(sY < 0){
         sY = 0;
-      }else{
-        y = parseInt(y + move);
-        height = parseInt(height - move);
-        sHeight = parseInt(sHeight - move / heightScale);
+        move = - this.originSY * heightScale;
       }
+
+      y = parseInt(y + move);
+      height = parseInt(height - move);
+      sHeight = parseInt(sHeight - move / heightScale);
     }
 
     if(this.crop === 'left-handler'
@@ -93,11 +94,11 @@ var CropperView = Backbone.View.extend({
       sX = parseInt(sX + move / widthScale);
       if(sX < 0){
         sX = 0;
-      }else{
-        x = parseInt(x + move);
-        width = parseInt(width - move);
-        sWidth = parseInt(sWidth - move / widthScale);
+        move = - this.originSX * widthScale;
       }
+      x = parseInt(x + move);
+      width = parseInt(width - move);
+      sWidth = parseInt(sWidth - move / widthScale);
     }
 
     if(this.crop === 'bottom-handler'
@@ -107,6 +108,7 @@ var CropperView = Backbone.View.extend({
       sHeight = parseInt(sHeight + move / heightScale);
       if(sHeight > this.model.get('_originalHeight')){
         sHeight = this.model.get('_originalHeight');
+        height = parseInt(sHeight * heightScale);
       }else{
         height = parseInt(height + move);
       }
@@ -119,6 +121,7 @@ var CropperView = Backbone.View.extend({
       sWidth = parseInt(sWidth + move / widthScale);
       if(sWidth > this.model.get('_originalWidth')){
         sWidth = this.model.get('_originalWidth');
+        width = sWidth * widthScale;
       }else{
         width = parseInt(width + move);
       }
