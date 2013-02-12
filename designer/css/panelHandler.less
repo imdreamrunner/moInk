@@ -1,0 +1,144 @@
+#object-hover, #object-selected{
+  position: absolute;
+  border: 1px solid #669966;
+  z-index: 1000;
+}
+
+#object-selected{
+  cursor: move;
+}
+
+.panel-handler{
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity:1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.corner-panel-handler{
+  border-radius: 4px;
+  z-index: 100010;
+}
+
+#object-selected .top-handler{
+  left: 50%;
+  cursor: ns-resize;
+  .panel-handler
+}
+#object-selected .right-handler{
+  top: 50%;
+  right: 0px;
+  cursor: ew-resize;
+  .panel-handler
+}
+#object-selected .bottom-handler{
+  left: 50%;
+  bottom: 0px;
+  cursor: ns-resize;
+  .panel-handler
+}
+#object-selected .left-handler{
+  top: 50%;
+  cursor: ew-resize;
+  .panel-handler
+}
+#object-selected .right-top-handler{
+  right: 0px;
+  cursor: nesw-resize;
+  .panel-handler;
+  .corner-panel-handler
+}
+#object-selected .right-bottom-handler{
+  right: 0px;
+  bottom: 0px;
+  cursor: nwse-resize;
+  .panel-handler;
+  .corner-panel-handler
+}
+
+#object-selected .left-top-handler{
+  cursor: nwse-resize;
+  .panel-handler;
+  .corner-panel-handler
+}
+#object-selected .left-bottom-handler{
+  bottom: 0px;
+  cursor: nesw-resize;
+  .panel-handler;
+  .corner-panel-handler
+}
+
+/*
+ * Cropper Handler
+ */
+
+#object-cropper{
+  position: absolute;
+  border: 1px solid #333;
+  z-index: 1010;
+}
+.cropper-handler{
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity:1;
+  width: 8px;
+  height: 8px;
+}
+
+.corner-cropper-handler{
+  z-index: 100010;
+}
+
+#object-cropper .top-handler{
+  left: 50%;
+  cursor: ns-resize;
+  .cropper-handler
+}
+#object-cropper .right-handler{
+  top: 50%;
+  right: 0px;
+  cursor: ew-resize;
+  .cropper-handler
+}
+#object-cropper .bottom-handler{
+  left: 50%;
+  bottom: 0px;
+  cursor: ns-resize;
+  .cropper-handler
+}
+#object-cropper .left-handler{
+  top: 50%;
+  cursor: ew-resize;
+  .cropper-handler
+}
+#object-cropper .right-top-handler{
+  right: 0px;
+  cursor: nesw-resize;
+  .cropper-handler;
+  .corner-cropper-handler
+}
+#object-cropper .right-bottom-handler{
+  right: 0px;
+  bottom: 0px;
+  cursor: nwse-resize;
+  .cropper-handler;
+  .corner-cropper-handler
+}
+
+#object-cropper .left-top-handler{
+  cursor: nwse-resize;
+  .cropper-handler;
+  .corner-cropper-handler
+}
+#object-cropper .left-bottom-handler{
+  bottom: 0px;
+  cursor: nesw-resize;
+  .cropper-handler;
+  .corner-cropper-handler
+}

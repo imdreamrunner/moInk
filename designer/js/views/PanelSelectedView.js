@@ -9,7 +9,7 @@ var PanelSelectedView = PanelHoverView.extend({
     this.listenTo(this.model, 'change', this.change);
     this.listenTo(this.model, 'destroy', this.close);
 
-    this.render();
+    this.selectedRender();
 
     if(this.model.get('type') !== 'text'){
       this.$el.html($('#resize-handler').html());
@@ -18,6 +18,21 @@ var PanelSelectedView = PanelHoverView.extend({
 
   events: {
     'mousedown': 'mouseDown'
+  },
+
+  selectedRender: function(){
+    if(this.model.get('_cropping')){
+      if(!this.cropper){
+        this.render();
+        this.cropper = new CropperView({model: this.model});
+      }
+    }else{
+      if(this.cropper){
+        this.cropper.close();
+        delete this.cropper;
+      }
+      this.render();
+    }
   },
 
   mouseDown: function(e){
@@ -105,10 +120,24 @@ var PanelSelectedView = PanelHoverView.extend({
 
   change: function(){
     if(this.model.get('_selected')){
-      this.render();
+      this.selectedRender();
     }else{
       this.close();
     }
+  },
+
+  close: function(){
+    /*
+     * This has been rewrite from hover view.
+     */
+    this.model.set({
+      _cropping: false
+    });
+    if(this.cropper && this.cropper.close)
+      this.cropper.close();
+    this.off();
+    this.stopListening();
+    this.remove();
   }
 
 });

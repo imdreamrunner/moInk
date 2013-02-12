@@ -12,7 +12,8 @@ var DESIGNER_URL = '/designer/';
 var templateList = [
   'templates',
   'moBox',
-  'box.newImage'
+  'box.newImage',
+  'TopBar'
 ];
 
 var ModuleList = [
@@ -28,6 +29,7 @@ var ModuleList = [
   'models/Object',
   'collections/ObjectList',
   'views/AppView',
+  'views/CropperView',
   'views/ObjectListItemView',
   'views/ObjectListView',
   'views/PanelHoverView',

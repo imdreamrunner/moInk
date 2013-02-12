@@ -667,114 +667,6 @@ body {
   outline: none;
   display: none;
 }
-#object-hover,
-#object-selected {
-  position: absolute;
-  border: 1px dashed #C5C2C0;
-  z-index: 1000;
-}
-.panel-handler {
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.top-handler {
-  height: 5px;
-  width: 100%;
-  cursor: ns-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.right-handler {
-  width: 5px;
-  height: 100%;
-  right: 0px;
-  cursor: ew-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.bottom-handler {
-  height: 5px;
-  width: 100%;
-  bottom: 0px;
-  cursor: ns-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.left-handler {
-  width: 5px;
-  height: 100%;
-  cursor: ew-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.right-top-handler {
-  height: 5px;
-  width: 5px;
-  right: 0px;
-  cursor: nesw-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.right-bottom-handler {
-  height: 5px;
-  width: 5px;
-  right: 0px;
-  bottom: 0px;
-  cursor: nwse-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.left-top-handler {
-  height: 5px;
-  width: 5px;
-  cursor: nwse-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
-.left-bottom-handler {
-  height: 5px;
-  width: 5px;
-  bottom: 0px;
-  cursor: nesw-resize;
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity: 0;
-  /* the above two line is to fix IE's bug with mouse event. */
-
-}
 #top-bar {
   position: absolute;
   top: 30px;
@@ -891,4 +783,247 @@ body {
   text-align: center;
   height: 12px;
   line-height: 12px;
+}
+#object-hover,
+#object-selected {
+  position: absolute;
+  border: 1px solid #669966;
+  z-index: 1000;
+}
+#object-selected {
+  cursor: move;
+}
+.panel-handler {
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.corner-panel-handler {
+  border-radius: 4px;
+  z-index: 100010;
+}
+#object-selected .top-handler {
+  left: 50%;
+  cursor: ns-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+#object-selected .right-handler {
+  top: 50%;
+  right: 0px;
+  cursor: ew-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+#object-selected .bottom-handler {
+  left: 50%;
+  bottom: 0px;
+  cursor: ns-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+#object-selected .left-handler {
+  top: 50%;
+  cursor: ew-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+#object-selected .right-top-handler {
+  right: 0px;
+  cursor: nesw-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border-radius: 4px;
+  z-index: 100010;
+}
+#object-selected .right-bottom-handler {
+  right: 0px;
+  bottom: 0px;
+  cursor: nwse-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border-radius: 4px;
+  z-index: 100010;
+}
+#object-selected .left-top-handler {
+  cursor: nwse-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border-radius: 4px;
+  z-index: 100010;
+}
+#object-selected .left-bottom-handler {
+  bottom: 0px;
+  cursor: nesw-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #99cc99;
+  border: 1px solid #336633;
+  opacity: 1;
+  margin: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border-radius: 4px;
+  z-index: 100010;
+}
+/*
+ * Cropper Handler
+ */
+#object-cropper {
+  position: absolute;
+  border: 1px solid #333;
+  z-index: 1010;
+}
+.cropper-handler {
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+.corner-cropper-handler {
+  z-index: 100010;
+}
+#object-cropper .top-handler {
+  left: 50%;
+  cursor: ns-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+#object-cropper .right-handler {
+  top: 50%;
+  right: 0px;
+  cursor: ew-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+#object-cropper .bottom-handler {
+  left: 50%;
+  bottom: 0px;
+  cursor: ns-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+#object-cropper .left-handler {
+  top: 50%;
+  cursor: ew-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+#object-cropper .right-top-handler {
+  right: 0px;
+  cursor: nesw-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  z-index: 100010;
+}
+#object-cropper .right-bottom-handler {
+  right: 0px;
+  bottom: 0px;
+  cursor: nwse-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  z-index: 100010;
+}
+#object-cropper .left-top-handler {
+  cursor: nwse-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  z-index: 100010;
+}
+#object-cropper .left-bottom-handler {
+  bottom: 0px;
+  cursor: nesw-resize;
+  position: absolute;
+  pointer-events: all;
+  background: #333;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  z-index: 100010;
 }

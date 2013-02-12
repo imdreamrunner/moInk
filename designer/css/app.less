@@ -159,77 +159,9 @@ body{
   display: none;
 }
 
-#object-hover, #object-selected{
-  position: absolute;
-  border: 1px dashed #C5C2C0;
-  z-index: 1000;
-}
-
-.panel-handler{
-  position: absolute;
-  pointer-events: all;
-  background: #FFF;
-  opacity:0;
-/* the above two line is to fix IE's bug with mouse event. */
-}
-
-.top-handler{
-  height: 5px;
-  width: 100%;
-  cursor: ns-resize;
-  .panel-handler
-}
-.right-handler{
-  width: 5px;
-  height: 100%;
-  right: 0px;
-  cursor: ew-resize;
-  .panel-handler
-}
-.bottom-handler{
-  height: 5px;
-  width: 100%;
-  bottom: 0px;
-  cursor: ns-resize;
-  .panel-handler
-}
-.left-handler{
-  width: 5px;
-  height: 100%;
-  cursor: ew-resize;
-  .panel-handler
-}
-.right-top-handler{
-  height: 5px;
-  width: 5px;
-  right: 0px;
-  cursor: nesw-resize;
-  .panel-handler
-}
-.right-bottom-handler{
-  height: 5px;
-  width: 5px;
-  right: 0px;
-  bottom: 0px;
-  cursor: nwse-resize;
-  .panel-handler
-}
-
-.left-top-handler{
-  height: 5px;
-  width: 5px;
-  cursor: nwse-resize;
-  .panel-handler
-}
-.left-bottom-handler{
-  height: 5px;
-  width: 5px;
-  bottom: 0px;
-  cursor: nesw-resize;
-  .panel-handler
-}
 
 @import "top-bar";
 @import "top-bar.edit.less";
 @import "top-bar.image.less";
 @import "top-bar.wizard.less";
+@import "panelHandler";

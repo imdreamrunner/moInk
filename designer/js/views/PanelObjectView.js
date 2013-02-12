@@ -61,31 +61,53 @@ var PanelObjectView = Backbone.View.extend({
   },
 
   drawImage: function(){
-    var context = this.$el[0].getContext('2d');
-
-    var x = this.model.get('x');
-    var y = this.model.get('y');
-
-    var width = this.model.get('width') || this.imageObject.width;
-    var height = this.model.get('height') || this.imageObject.height;
-    this.model.set({
-      width: width,
-      height: height,
+    var set = this.model.set({
+      _originalWidth: this.imageObject.width,
+      _originalHeight: this.imageObject.height,
       silent: true
     });
 
-    if(isNaN(x)){
-      x = parseInt((designer.width - width) / 2);
+    if(!set){
+      alert('Something wrong');
+      // TODO: error handler.
     }
-    if(isNaN(y)){
-      y = parseInt((designer.height - height) / 2);
-    }
-    this.model.set({
-      x: x,
-      y: y
-    });
 
-    context.drawImage(this.imageObject, x, y, width, height);
+    if(!this.model.has('width')){
+      this.model.set({
+        width: this.imageObject.width,
+        height: this.imageObject.height,
+        silent: true
+      });
+    }
+
+    if(!this.model.has('x')){
+      this.model.set({
+        x: parseInt((designer.width - this.model.get('width')) / 2),
+        silent: true
+      });
+    }
+
+    if(!this.model.has('y')){
+      this.model.set({
+        y: parseInt((designer.height - this.model.get('height')) / 2),
+        silent: true
+      });
+    }
+
+    if(!this.model.has('sWidth')){
+      this.model.set({
+        sWidth: this.imageObject.width,
+        sHeight: this.imageObject.height,
+        sX: 0,
+        sY: 0,
+        silent: true
+      });
+    }
+
+    var context = this.$el[0].getContext('2d');
+    context.drawImage(this.imageObject,
+      this.model.get('sX'), this.model.get('sY'), this.model.get('sWidth'), this.model.get('sHeight'),
+      this.model.get('x'), this.model.get('y'), this.model.get('width'), this.model.get('height'));
   },
 
   drawShape: function(){

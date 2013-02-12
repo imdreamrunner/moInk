@@ -304,6 +304,25 @@ var TopBarView = Backbone.View.extend({
     });
   },
 
+  crop: function(){
+    if(this.model.get('_cropping')){
+      this.$el.find('.crop').val('Cropping');
+    }else{
+      this.$el.find('.crop').val('Crop');
+    }
+  },
+
+  cropChange: function(){
+    _.bindAll(this, 'cropChangeHandler');
+    this.$el.find('.crop').on('click', this.cropChangeHandler);
+  },
+
+  cropChangeHandler: function(){
+    this.model.set({
+      _cropping: !this.model.get('_cropping')
+    });
+  },
+
   /* methods for bar */
 
   imageBarInitialize: function(){
@@ -312,11 +331,13 @@ var TopBarView = Backbone.View.extend({
 
     this.positionChange();
     this.sizeChange();
+    this.cropChange();
   },
 
   imageBarChange: function(){
     this.position();
     this.size();
+    this.crop();
   },
 
   textBarInitialize: function(){

@@ -7,17 +7,27 @@ var PanelHoverView = Backbone.View.extend({
   },
 
   render: function(){
-    var x = this.model.get('x');
-    var y = this.model.get('y');
+    var x, y, width, height;
 
-    var width = this.model.get('_actualWidth') || this.model.get('width');
-    var height = this.model.get('_actualHeight') || this.model.get('height');
+    if(this.model.get('_cropping')){
+      var widthScale = this.model.get('width') / this.model.get('sWidth');
+      var heightScale = this.model.get('height') / this.model.get('sHeight');
+      x = this.model.get('x') - widthScale * this.model.get('sX');
+      y = this.model.get('y') - heightScale * this.model.get('sY');
+      width = this.model.get('_originalWidth') * widthScale;
+      height = this.model.get('_originalHeight') * heightScale;
+    }else{
+      x = this.model.get('x');
+      y = this.model.get('y');
+      width = this.model.get('_actualWidth') || this.model.get('width');
+      height = this.model.get('_actualHeight') || this.model.get('height');
+    }
 
     this.$el.css({
-      'margin-left': parseInt(x * designer.scale) - 6,
-      'margin-top': parseInt(y * designer.scale) - 6,
-      width: parseInt(width * designer.scale) + 10,
-      height: parseInt(height * designer.scale) + 10
+      'margin-left': parseInt(x * designer.scale) -1,
+      'margin-top': parseInt(y * designer.scale) - 1,
+      width: parseInt(width * designer.scale),
+      height: parseInt(height * designer.scale)
     });
 
     this.$el.selectLess();
