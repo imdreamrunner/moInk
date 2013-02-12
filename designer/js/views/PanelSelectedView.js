@@ -22,18 +22,18 @@ var PanelSelectedView = PanelHoverView.extend({
 
   selectedRender: function(){
     if(this.model.get('_cropping')){
-      this.$el.hide();
       if(!this.cropper){
+        this.$el.html('');
         this.cropper = new CropperView({model: this.model});
       }
     }else{
       if(this.cropper){
         this.cropper.close();
         delete this.cropper;
+        this.$el.html($('#resize-handler').html());
       }
-      this.$el.show();
-      this.render();
     }
+    this.render();
   },
 
   mouseDown: function(e){
