@@ -22,6 +22,7 @@ var ModuleList = [
   //'plugins/backbone.localStorage',
   'plugins/backbone.validation',
   'plugins/jquery.form',
+  'plugins/jquery.rotate',
   'plugins/jquery.selectLess',
   'plugins/spectrum',
   'plugins/moBox',

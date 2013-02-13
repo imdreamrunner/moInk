@@ -24,10 +24,12 @@ var PanelSelectedView = Backbone.View.extend({
     var x, y, width, height;
 
     if(this.model.get('_cropping')){
-      var widthScale = this.model.get('width') / this.model.get('sWidth');
-      var heightScale = this.model.get('height') / this.model.get('sHeight');
-      x = this.model.get('x') - widthScale * this.model.get('sX');
-      y = this.model.get('y') - heightScale * this.model.get('sY');
+      var sWidth = this.model.get('sWidth');
+      var sHeight = this.model.get('sHeight')
+      var widthScale = this.model.get('width') / sWidth;
+      var heightScale = this.model.get('height') / sHeight;
+      x = this.model.get('x') + (this.model.get('_originalWidth') / 2 - sWidth / 2 - this.model.get('sX'))* widthScale;
+      y = this.model.get('y') + (this.model.get('_originalHeight') / 2 - sHeight / 2 - this.model.get('sY'))* widthScale;
       width = this.model.get('_originalWidth') * widthScale;
       height = this.model.get('_originalHeight') * heightScale;
     }else{
@@ -38,12 +40,16 @@ var PanelSelectedView = Backbone.View.extend({
     }
 
     this.$el.css({
-      'margin-left': parseInt(x * designer.scale) -1,
-      'margin-top': parseInt(y * designer.scale) - 1,
+      'margin-left': parseInt((x - width / 2) * designer.scale) - 1,
+      'margin-top': parseInt((y - height / 2) * designer.scale) - 1,
       width: parseInt(width * designer.scale),
       height: parseInt(height * designer.scale)
     });
 
+    var rotate = this.model.get('rotate');
+    if(rotate){
+      this.$el.rotate(rotate);
+    }
     this.$el.selectLess();
   },
 
@@ -118,24 +124,28 @@ var PanelSelectedView = Backbone.View.extend({
       || this.resize === 'right-top-handler'
       || this.resize === 'left-top-handler'){
       var move = (e.pageY - this.startPageY) / designer.scale
-      y = parseInt(y + move);
+      y = parseInt(y + move / 2);
       height = parseInt(height - move);
     }
     if(this.resize === 'right-handler'
       || this.resize === 'right-bottom-handler'
       || this.resize === 'right-top-handler'){
-      width = parseInt(width + (e.pageX - this.startPageX) / designer.scale);
+      var move = (e.pageX - this.startPageX) / designer.scale
+      x = parseInt(x + move / 2);
+      width = parseInt(width + move);
     }
     if(this.resize === 'bottom-handler'
       || this.resize === 'right-bottom-handler'
       || this.resize === 'left-bottom-handler'){
-      height = parseInt(height + (e.pageY - this.startPageY) / designer.scale);
+      var move = (e.pageY - this.startPageY) / designer.scale
+      y = parseInt(y + move / 2);
+      height = parseInt(height + move);
     }
     if(this.resize === 'left-handler'
       || this.resize === 'left-bottom-handler'
       || this.resize === 'left-top-handler'){
       var move = (e.pageX - this.startPageX) / designer.scale
-      x = parseInt(x + move);
+      x = parseInt(x + move / 2);
       width = parseInt(width - move);
     }
     this.model.set({

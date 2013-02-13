@@ -323,6 +323,21 @@ var TopBarView = Backbone.View.extend({
     });
   },
 
+  rotate: function(){
+    this.$el.find('.rotate').val(this.model.get('rotate') || '');
+  },
+
+  rotateChange: function(){
+    _.bindAll(this, 'rotateChangeHandler');
+    this.$el.find('.rotate').on('change', this.rotateChangeHandler);
+  },
+
+  rotateChangeHandler: function(){
+    this.model.set({
+      rotate: this.$el.find('.rotate').val()
+    })
+  },
+
   /* methods for bar */
 
   imageBarInitialize: function(){
@@ -332,12 +347,14 @@ var TopBarView = Backbone.View.extend({
     this.positionChange();
     this.sizeChange();
     this.cropChange();
+    this.rotateChange();
   },
 
   imageBarChange: function(){
     this.position();
     this.size();
     this.crop();
+    this.rotate();
   },
 
   textBarInitialize: function(){

@@ -17,12 +17,16 @@ var CropperView = Backbone.View.extend({
     var height = this.model.get('_actualHeight') || this.model.get('height');
 
     this.$el.css({
-      'margin-left': parseInt(x * designer.scale) -1,
-      'margin-top': parseInt(y * designer.scale) - 1,
+      'margin-left': parseInt((x - width / 2) * designer.scale) -1,
+      'margin-top': parseInt((y - height / 2) * designer.scale) - 1,
       width: parseInt(width * designer.scale),
       height: parseInt(height * designer.scale)
     });
 
+    var rotate = this.model.get('rotate');
+    if(rotate){
+      this.$el.rotate(rotate);
+    }
     this.$el.selectLess();
   },
 
@@ -123,7 +127,7 @@ var CropperView = Backbone.View.extend({
         move = - this.originSY * heightScale;
       }
 
-      y = parseInt(y + move);
+      y = parseInt(y + move / 2);
       height = parseInt(height - move);
       sHeight = parseInt(sHeight - move / heightScale);
     }
@@ -137,7 +141,7 @@ var CropperView = Backbone.View.extend({
         sX = 0;
         move = - this.originSX * widthScale;
       }
-      x = parseInt(x + move);
+      x = parseInt(x + move / 2);
       width = parseInt(width - move);
       sWidth = parseInt(sWidth - move / widthScale);
     }
@@ -146,11 +150,14 @@ var CropperView = Backbone.View.extend({
       || this.crop === 'right-bottom-handler'
       || this.crop === 'left-bottom-handler'){
       var move = (e.pageY - this.startPageY) / designer.scale;
+      var originalHeight = this.model.get('_originalHeight');
       sHeight = parseInt(sHeight + move / heightScale);
-      if(sHeight > this.model.get('_originalHeight')){
-        sHeight = this.model.get('_originalHeight');
+      if((sHeight + sY) > originalHeight){
+        sHeight = this.model.get('_originalHeight') - sY;
         height = parseInt(sHeight * heightScale);
+        y = parseInt(y + (sHeight - this.originSHeight) * heightScale / 2);
       }else{
+        y = parseInt(y + move / 2);
         height = parseInt(height + move);
       }
     }
@@ -160,10 +167,12 @@ var CropperView = Backbone.View.extend({
       || this.crop === 'right-top-handler'){
       var move = (e.pageX - this.startPageX) / designer.scale;
       sWidth = parseInt(sWidth + move / widthScale);
-      if(sWidth > this.model.get('_originalWidth')){
-        sWidth = this.model.get('_originalWidth');
+      if((sWidth + sX) > this.model.get('_originalWidth')){
+        sWidth = this.model.get('_originalWidth') - sX;
         width = sWidth * widthScale;
+        x = parseInt(x + (sWidth - this.originSWidth) * widthScale / 2);
       }else{
+        x = parseInt(x + move / 2);
         width = parseInt(width + move);
       }
     }

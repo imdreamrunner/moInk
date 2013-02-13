@@ -82,14 +82,14 @@ var PanelObjectView = Backbone.View.extend({
 
     if(!this.model.has('x')){
       this.model.set({
-        x: parseInt((designer.width - this.model.get('width')) / 2),
+        x: parseInt((designer.width) / 2),
         silent: true
       });
     }
 
     if(!this.model.has('y')){
       this.model.set({
-        y: parseInt((designer.height - this.model.get('height')) / 2),
+        y: parseInt((designer.height) / 2),
         silent: true
       });
     }
@@ -105,9 +105,24 @@ var PanelObjectView = Backbone.View.extend({
     }
 
     var context = this.$el[0].getContext('2d');
+    var rotate = this.model.get('rotate');
+    var x = this.model.get('x');
+    var y = this.model.get('y');
+    var width = this.model.get('width');
+    var height = this.model.get('height');
+
+    context.save();
+    context.translate(x, y);
+
+    if(rotate){
+      context.rotate(Math.PI * rotate / 180);
+    }else{
+
+    }
     context.drawImage(this.imageObject,
       this.model.get('sX'), this.model.get('sY'), this.model.get('sWidth'), this.model.get('sHeight'),
-      this.model.get('x'), this.model.get('y'), this.model.get('width'), this.model.get('height'));
+      - width / 2, - height / 2, width, height);
+    context.restore();
   },
 
   drawShape: function(){
@@ -122,20 +137,23 @@ var PanelObjectView = Backbone.View.extend({
         var color = this.model.get('color');
 
         if(isNaN(x)){
-          x = parseInt((designer.width - width) / 2);
+          x = parseInt((designer.width) / 2);
         }
         if(isNaN(y)){
-          y = parseInt((designer.height - height) / 2);
+          y = parseInt((designer.height) / 2);
         }
         this.model.set({
           x: x,
           y: y
         });
 
+        context.save();
+        context.translate(x, y);
         context.beginPath();
-        context.rect(x, y, width, height);
+        context.rect(- width / 2, - height / 2, width, height);
         context.fillStyle = color;
         context.fill();
+        context.restore();
         /*
         context.lineWidth = 7;
         context.strokeStyle = 'black';
@@ -186,19 +204,23 @@ var PanelObjectView = Backbone.View.extend({
 
     if(!this.model.has('x')){
       this.model.set({
-        x: parseInt((designer.width - this.textImage.width) / 2),
+        x: parseInt((designer.width) / 2),
         silent: true
       });
     }
 
     if(!this.model.has('y')){
       this.model.set({
-        y: parseInt((designer.height - this.textImage.height) / 2),
+        y: parseInt((designer.height) / 2),
         silent: true
       });
     }
-
-    context.drawImage(this.textImage, this.model.get('x'), this.model.get('y'));
+    var x = this.model.get('x');
+    var y = this.model.get('y');
+    context.save();
+    context.translate(x, y);
+    context.drawImage(this.textImage, - this.textImage.width / 2, - this.textImage.height / 2);
+    context.restore()
     /*
     var x = this.model.get('x') || 0;
     var y = this.model.get('y') || 0;
@@ -251,8 +273,8 @@ var PanelObjectView = Backbone.View.extend({
     var y = this.model.get('y');
     var width = this.model.get('_actualWidth') || this.model.get('width');
     var height = this.model.get('_actualHeight') || this.model.get('height');
-    if(x <= mouseX && mouseX <= (x + width)){
-      if(y <= mouseY && mouseY <= (y + height)){
+    if((x - width / 2) <= mouseX && mouseX <= (x + width / 2)){
+      if((y - height / 2) <= mouseY && mouseY <= (y + height / 2)){
         return true;
       }
     }

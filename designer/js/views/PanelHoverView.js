@@ -15,12 +15,16 @@ var PanelHoverView = Backbone.View.extend({
     height = this.model.get('_actualHeight') || this.model.get('height');
 
     this.$el.css({
-      'margin-left': parseInt(x * designer.scale) - 5,
-      'margin-top': parseInt(y * designer.scale) - 5,
+      'margin-left': parseInt((x - width / 2) * designer.scale) - 5,
+      'margin-top': parseInt((y - height / 2) * designer.scale) - 5,
       width: parseInt(width * designer.scale) + 8,
       height: parseInt(height * designer.scale) + 8
     });
 
+    var rotate = this.model.get('rotate');
+    if(rotate){
+      this.$el.rotate(rotate);
+    }
     this.$el.selectLess();
   },
 
