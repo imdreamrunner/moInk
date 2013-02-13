@@ -1,7 +1,7 @@
 var PanelObjectView = Backbone.View.extend({
 
   initialize: function(){
-    _.bindAll(this, 'render', 'drawImage', 'drawShape', 'drawText');
+    _.bindAll(this, 'render', 'drawImage', 'drawShape', 'drawText', 'getText');
 
     this.$el = $('<canvas width="' + designer.width + '" height="' + designer.height + '"></canvas>');
     this.$el.css({
@@ -145,9 +145,61 @@ var PanelObjectView = Backbone.View.extend({
     }
   },
 
+  getText: function(){
+    var _this = this;
+    $.ajax({
+      type: "POST",
+      url: DESIGNER_URL + 'getText',
+      data: {
+        text: this.model.get('text'),
+        fontFamily: this.model.get('fontFamily'),
+        fontSize: this.model.get('fontSize'),
+        color: this.model.get('color')
+      },
+      success: function(result){
+        console.log(result);
+        _this.textImage = new Image();
+        _this.textImage.onload = function(){
+          _this.model.set({
+            _actualWidth: _this.textImage.width,
+            _actualHeight: _this.textImage.height
+          })
+          _this.drawText();
+        }
+        _this.textImage.src = result.dataURL;
+      }
+    });
+  },
+
   drawText: function(){
+    if(!this.textImage
+      || this.model.hasChanged('text')
+      || this.model.hasChanged('color')
+      || this.model.hasChanged('fontFamily')
+      || this.model.hasChanged('fontSize')
+      ){
+      this.getText();
+      return;
+    }
+
     var context = this.$el[0].getContext('2d');
 
+    if(!this.model.has('x')){
+      this.model.set({
+        x: parseInt((designer.width - this.textImage.width) / 2),
+        silent: true
+      });
+    }
+
+    if(!this.model.has('y')){
+      this.model.set({
+        y: parseInt((designer.height - this.textImage.height) / 2),
+        silent: true
+      });
+    }
+
+    context.drawImage(this.textImage, this.model.get('x'), this.model.get('y'));
+    /*
     var x = this.model.get('x') || 0;
     var y = this.model.get('y') || 0;
     var fontSize = this.model.get('fontSize');
@@ -190,6 +242,8 @@ var PanelObjectView = Backbone.View.extend({
       x: x,
       y: y
     });
+
+    */
   },
 
   isHover: function(mouseX, mouseY){

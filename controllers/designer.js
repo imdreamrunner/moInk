@@ -70,7 +70,6 @@ module.exports = function(app, models){
   });
 
   /* Get Image from Third Party Websites */
-
   app.post('/designer/image/getFromURL', function(req, res){
     /*
      * Download method from http://www.hacksparrow.com/using-node-js-to-download-files.html
@@ -120,6 +119,8 @@ module.exports = function(app, models){
       });
     });
   });
+
+  /* Upload image from user's computer. */
   app.post('/designer/image/upload', function(req, res){
     /*
      * modified from http://markdawson.tumblr.com/post/18359176420/asynchronous-file-uploading-using-express-and-node-js
@@ -155,4 +156,61 @@ module.exports = function(app, models){
       });
     });
   });
+
+  /* Return an image of rendered text  */
+  app.post('/designer/getText', function(req, res){
+    var Canvas = require('canvas');
+
+    var fontSize = req.body.fontSize;
+    var fontFamily = req.body.fontFamily;
+    var color = req.body.color;
+    var text = req.body.text;
+    var lines = text.split(/\r\n|\r|\n/);
+
+    var maxWidth = 0;
+
+    var dummy = (new Canvas(200, 200)).getContext('2d');
+    dummy.font = fontSize + 'px ' + fontFamily;
+
+    for(var line in lines){
+      var currentWidth = dummy.measureText(lines[line]).width;
+      if(currentWidth > maxWidth){
+        maxWidth = currentWidth;
+      }
+    }
+
+    var canvas = new Canvas(maxWidth, parseInt(fontSize * lines.length * 1.2));
+    var context =  canvas.getContext('2d');
+    context.font = fontSize + 'px ' + fontFamily;
+    context.fillStyle = color;
+    context.textBaseline = 'top';
+
+    for(var line in lines){
+      context.fillText(lines[line], 0, fontSize * line * 1.2);
+    }
+
+
+    res.json({
+      dataURL: canvas.toDataURL()
+    });
+
+    /*
+     var canvas = new Canvas(img.width, img.height);
+     var ctx = canvas.getContext('2d');
+     ctx.drawImage(img, 0, 0, img.width, img.height);
+     responseImage(canvas);
+
+     var responseImage = function(canvas){
+     res.writeHead(200, { 'Content-Type': 'image/png' } );
+     canvas.toBuffer(function(err, buf){
+     res.end(buf);
+     console.log(buf);
+     });
+
+     }
+     img.src = ATTACHMENT_DIR + req.params.filename;
+
+     */
+  });
+
 };
