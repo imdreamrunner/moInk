@@ -61,16 +61,11 @@ var PanelObjectView = Backbone.View.extend({
   },
 
   drawImage: function(){
-    var set = this.model.set({
+    this.model.set({
       _originalWidth: this.imageObject.width,
       _originalHeight: this.imageObject.height,
       silent: true
     });
-
-    if(!set){
-      alert('Something wrong');
-      // TODO: error handler.
-    }
 
     if(!this.model.has('width')){
       this.model.set({

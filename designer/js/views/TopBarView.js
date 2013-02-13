@@ -334,7 +334,7 @@ var TopBarView = Backbone.View.extend({
 
   rotateChangeHandler: function(){
     this.model.set({
-      rotate: this.$el.find('.rotate').val()
+      rotate: parseInt(this.$el.find('.rotate').val())
     })
   },
 

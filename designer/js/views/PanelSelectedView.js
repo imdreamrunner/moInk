@@ -120,32 +120,41 @@ var PanelSelectedView = Backbone.View.extend({
     var y = this.originY;
     var width = this.originWidth;
     var height = this.originHeight;
+    var rotate = this.model.get('rotate')||0;
+    var cosR = Math.cos(Math.PI * rotate / 180);
+    var sinR = Math.sin(Math.PI * rotate / 180);
+
     if(this.resize === 'top-handler'
       || this.resize === 'right-top-handler'
       || this.resize === 'left-top-handler'){
-      var move = (e.pageY - this.startPageY) / designer.scale
+      console.log(sinR);
+      var move = (e.pageY - this.startPageY) / (designer.scale * cosR);
+      x = parseInt(x - move * sinR / 2);
       y = parseInt(y + move / 2);
       height = parseInt(height - move);
     }
     if(this.resize === 'right-handler'
       || this.resize === 'right-bottom-handler'
       || this.resize === 'right-top-handler'){
-      var move = (e.pageX - this.startPageX) / designer.scale
+      var move = (e.pageX - this.startPageX) / (designer.scale * cosR);
       x = parseInt(x + move / 2);
+      y = parseInt(y + move * sinR / 2);
       width = parseInt(width + move);
     }
     if(this.resize === 'bottom-handler'
       || this.resize === 'right-bottom-handler'
       || this.resize === 'left-bottom-handler'){
-      var move = (e.pageY - this.startPageY) / designer.scale
+      var move = (e.pageY - this.startPageY) / (designer.scale * cosR);
+      x = parseInt(x - move * sinR / 2);
       y = parseInt(y + move / 2);
       height = parseInt(height + move);
     }
     if(this.resize === 'left-handler'
       || this.resize === 'left-bottom-handler'
       || this.resize === 'left-top-handler'){
-      var move = (e.pageX - this.startPageX) / designer.scale
+      var move = (e.pageX - this.startPageX) / (designer.scale * cosR);
       x = parseInt(x + move / 2);
+      y = parseInt(y + move * sinR / 2);
       width = parseInt(width - move);
     }
     this.model.set({
