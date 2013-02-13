@@ -74,15 +74,25 @@ var CropperView = Backbone.View.extend({
   },
 
   doMove: function(e){
+    var rotate = this.model.get('rotate')||0;
+    var sinR = Math.sin(Math.PI * rotate / 180);
+    var cosR = Math.cos(Math.PI * rotate / 180);
+
     var sX, sY;
-    sX = parseInt(this.originSX - (e.pageX - this.startPageX) / (this.widthScale * designer.scale));
+    var newX = (e.pageX - this.startPageX) / (this.widthScale * designer.scale);
+    var newY = (e.pageY - this.startPageY) / (this.heightScale * designer.scale);
+    var moveX = cosR * newX + sinR * newY;
+    var moveY = - sinR * newX + cosR * newY;
+    sX = parseInt(this.originSX - moveX);
+    sY = parseInt(this.originSY - moveY);
+    console.log(sY);
+
     if(sX < 0){
       sX = 0;
     }
     if(sX > (this.model.get('_originalWidth') - this.model.get('sWidth'))){
       sX = this.model.get('_originalWidth') - this.model.get('sWidth');
     }
-    sY = parseInt(this.originSY - (e.pageY - this.startPageY) / (this.heightScale * designer.scale));
     if(sY < 0){
       sY = 0;
     }

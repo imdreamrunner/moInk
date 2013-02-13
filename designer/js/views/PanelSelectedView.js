@@ -23,22 +23,10 @@ var PanelSelectedView = Backbone.View.extend({
   render: function(){
     var x, y, width, height;
 
-    if(this.model.get('_cropping')){
-      var sWidth = this.model.get('sWidth');
-      var sHeight = this.model.get('sHeight')
-      var widthScale = this.model.get('width') / sWidth;
-      var heightScale = this.model.get('height') / sHeight;
-      x = this.model.get('x') + (this.model.get('_originalWidth') / 2 - sWidth / 2 - this.model.get('sX'))* widthScale;
-      y = this.model.get('y') + (this.model.get('_originalHeight') / 2 - sHeight / 2 - this.model.get('sY'))* widthScale;
-      width = this.model.get('_originalWidth') * widthScale;
-      height = this.model.get('_originalHeight') * heightScale;
-    }else{
-      x = this.model.get('x');
-      y = this.model.get('y');
-      width = this.model.get('_actualWidth') || this.model.get('width');
-      height = this.model.get('_actualHeight') || this.model.get('height');
-    }
-
+    x = this.model.get('x');
+    y = this.model.get('y');
+    width = this.model.get('_actualWidth') || this.model.get('width');
+    height = this.model.get('_actualHeight') || this.model.get('height');
     this.$el.css({
       'margin-left': parseInt((x - width / 2) * designer.scale) - 1,
       'margin-top': parseInt((y - height / 2) * designer.scale) - 1,
@@ -56,14 +44,14 @@ var PanelSelectedView = Backbone.View.extend({
   selectedRender: function(){
     if(this.model.get('_cropping')){
       if(!this.cropper){
-        this.$el.html('');
+        this.$el.hide();
         this.cropper = new CropperView({model: this.model});
       }
     }else{
       if(this.cropper){
         this.cropper.close();
         delete this.cropper;
-        this.$el.html($('#resize-handler').html());
+        this.$el.show();
       }
     }
     this.render();
