@@ -75,8 +75,6 @@ var PanelSelectedView = Backbone.View.extend({
     if(className !== ''){
       console.log('resize');
       this.resize = className;
-      this.startPageX = e.pageX;
-      this.startPageY = e.pageY;
       this.originX = this.model.get('x');
       this.originY = this.model.get('y');
       this.originWidth = this.model.get('width');
@@ -121,42 +119,45 @@ var PanelSelectedView = Backbone.View.extend({
     var width = this.originWidth;
     var height = this.originHeight;
     var rotate = this.model.get('rotate')||0;
-    var cosR = Math.cos(Math.PI * rotate / 180);
     var sinR = Math.sin(Math.PI * rotate / 180);
+    var cosR = Math.cos(Math.PI * rotate / 180);
+    var tanR = Math.tan(Math.PI * rotate / 180);
+    var newX = (e.pageX - designer.panelView.$el.offset().left) / designer.scale - x;
+    var newY = (e.pageY - designer.panelView.$el.offset().top) / designer.scale - y;
+    var rX = cosR * newX + sinR * newY;
+    var rY = - sinR * newX + cosR * newY;
+
+
 
     if(this.resize === 'top-handler'
       || this.resize === 'right-top-handler'
       || this.resize === 'left-top-handler'){
-      console.log(sinR);
-      var move = (e.pageY - this.startPageY) / (designer.scale * cosR);
-      x = parseInt(x - move * sinR / 2);
-      y = parseInt(y + move / 2);
-      height = parseInt(height - move);
-    }
-    if(this.resize === 'right-handler'
-      || this.resize === 'right-bottom-handler'
-      || this.resize === 'right-top-handler'){
-      var move = (e.pageX - this.startPageX) / (designer.scale * cosR);
-      x = parseInt(x + move / 2);
-      y = parseInt(y + move * sinR / 2);
-      width = parseInt(width + move);
+      height = parseInt(this.originHeight / 2 - rY);
+      x = parseInt(x - (rY + this.originHeight / 2) * sinR / 2);
+      y = parseInt(y + (rY + this.originHeight / 2) * cosR / 2);
     }
     if(this.resize === 'bottom-handler'
       || this.resize === 'right-bottom-handler'
       || this.resize === 'left-bottom-handler'){
-      var move = (e.pageY - this.startPageY) / (designer.scale * cosR);
-      x = parseInt(x - move * sinR / 2);
-      y = parseInt(y + move / 2);
-      height = parseInt(height + move);
+      height = parseInt(this.originHeight / 2 + rY);
+      x = parseInt(x - (rY - this.originHeight / 2) * sinR / 2);
+      y = parseInt(y + (rY - this.originHeight / 2) * cosR / 2);
+    }
+    if(this.resize === 'right-handler'
+      || this.resize === 'right-bottom-handler'
+      || this.resize === 'right-top-handler'){
+      width = parseInt(this.originWidth / 2 + rX);
+      x = parseInt(x + (rX - this.originWidth / 2) * cosR / 2);
+      y = parseInt(y + (rX - this.originWidth / 2) * sinR / 2);
     }
     if(this.resize === 'left-handler'
       || this.resize === 'left-bottom-handler'
       || this.resize === 'left-top-handler'){
-      var move = (e.pageX - this.startPageX) / (designer.scale * cosR);
-      x = parseInt(x + move / 2);
-      y = parseInt(y + move * sinR / 2);
-      width = parseInt(width - move);
+      width = parseInt(this.originWidth / 2 - rX);
+      x = parseInt(x + (rX + this.originWidth / 2) * cosR / 2);
+      y = parseInt(y + (rX + this.originWidth / 2) * sinR / 2);
     }
+
     this.model.set({
       x: x,
       y: y,
