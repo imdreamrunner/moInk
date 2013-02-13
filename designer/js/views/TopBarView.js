@@ -375,6 +375,7 @@ var TopBarView = Backbone.View.extend({
   close: function(){
     this.off();
     this.stopListening();
+    $('.sp-container').remove(); /* for Spectrum Colorpicker */
     this.$el.html('');
   }
 });
