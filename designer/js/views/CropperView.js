@@ -40,8 +40,6 @@ var CropperView = Backbone.View.extend({
     if(className !== ''){
       /* cropping */
       this.crop = className;
-      this.startPageX = e.pageX;
-      this.startPageY = e.pageY;
       this.originX = this.model.get('x');
       this.originY = this.model.get('y');
       this.originSX = this.model.get('sX');
@@ -116,63 +114,78 @@ var CropperView = Backbone.View.extend({
     var sHeight = this.originSHeight;
     var widthScale = width / sWidth;
     var heightScale = height / sHeight;
+    var move;
+
+    var rotate = this.model.get('rotate')||0;
+    var sinR = Math.sin(Math.PI * rotate / 180);
+    var cosR = Math.cos(Math.PI * rotate / 180);
+    var newX = (e.pageX - designer.panelView.$el.offset().left) / designer.scale - x;
+    var newY = (e.pageY - designer.panelView.$el.offset().top) / designer.scale - y;
+    var rX = cosR * newX + sinR * newY;
+    var rY = - sinR * newX + cosR * newY;
 
     if(this.crop === 'top-handler'
       || this.crop === 'right-top-handler'
       || this.crop === 'left-top-handler'){
-      var move = (e.pageY - this.startPageY) / designer.scale;
+      move = rY + this.originHeight / 2;
       sY = parseInt(sY + move / heightScale);
       if(sY < 0){
         sY = 0;
         move = - this.originSY * heightScale;
       }
 
-      y = parseInt(y + move / 2);
+      x = parseInt(x - move * sinR / 2);
+      y = parseInt(y + move * cosR / 2);
       height = parseInt(height - move);
       sHeight = parseInt(sHeight - move / heightScale);
-    }
-
-    if(this.crop === 'left-handler'
-      || this.crop === 'left-bottom-handler'
-      || this.crop === 'left-top-handler'){
-      var move = (e.pageX - this.startPageX) / designer.scale;
-      sX = parseInt(sX + move / widthScale);
-      if(sX < 0){
-        sX = 0;
-        move = - this.originSX * widthScale;
-      }
-      x = parseInt(x + move / 2);
-      width = parseInt(width - move);
-      sWidth = parseInt(sWidth - move / widthScale);
     }
 
     if(this.crop === 'bottom-handler'
       || this.crop === 'right-bottom-handler'
       || this.crop === 'left-bottom-handler'){
-      var move = (e.pageY - this.startPageY) / designer.scale;
+      move = rY - this.originHeight / 2;
       var originalHeight = this.model.get('_originalHeight');
       sHeight = parseInt(sHeight + move / heightScale);
       if((sHeight + sY) > originalHeight){
         sHeight = this.model.get('_originalHeight') - sY;
         height = parseInt(sHeight * heightScale);
-        y = parseInt(y + (sHeight - this.originSHeight) * heightScale / 2);
+        x = parseInt(x - (sHeight - this.originSHeight) * heightScale * sinR / 2);
+        y = parseInt(y + (sHeight - this.originSHeight) * heightScale * cosR / 2);
       }else{
-        y = parseInt(y + move / 2);
+        x = parseInt(x - move * sinR / 2);
+        y = parseInt(y + move * cosR / 2);
         height = parseInt(height + move);
       }
+    }
+
+    if(this.crop === 'left-handler'
+      || this.crop === 'left-bottom-handler'
+      || this.crop === 'left-top-handler'){
+      move = rX + this.originWidth / 2;
+      sX = parseInt(sX + move / widthScale);
+      if(sX < 0){
+        sX = 0;
+        move = - this.originSX * widthScale;
+      }
+      x = parseInt(x + move * cosR / 2);
+      y = parseInt(y + move * sinR / 2);
+      width = parseInt(width - move);
+      sWidth = parseInt(sWidth - move / widthScale);
     }
 
     if(this.crop === 'right-handler'
       || this.crop === 'right-bottom-handler'
       || this.crop === 'right-top-handler'){
-      var move = (e.pageX - this.startPageX) / designer.scale;
+      move = rX - this.originWidth / 2;
       sWidth = parseInt(sWidth + move / widthScale);
       if((sWidth + sX) > this.model.get('_originalWidth')){
         sWidth = this.model.get('_originalWidth') - sX;
         width = sWidth * widthScale;
-        x = parseInt(x + (sWidth - this.originSWidth) * widthScale / 2);
+        x = parseInt(x + (sWidth - this.originSWidth) * widthScale * cosR / 2);
+        y = parseInt(y + (sWidth - this.originSWidth) * widthScale * sinR / 2);
       }else{
-        x = parseInt(x + move / 2);
+        x = parseInt(x + move * cosR / 2);
+        y = parseInt(y + move * sinR / 2);
         width = parseInt(width + move);
       }
     }

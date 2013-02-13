@@ -121,13 +121,10 @@ var PanelSelectedView = Backbone.View.extend({
     var rotate = this.model.get('rotate')||0;
     var sinR = Math.sin(Math.PI * rotate / 180);
     var cosR = Math.cos(Math.PI * rotate / 180);
-    var tanR = Math.tan(Math.PI * rotate / 180);
     var newX = (e.pageX - designer.panelView.$el.offset().left) / designer.scale - x;
     var newY = (e.pageY - designer.panelView.$el.offset().top) / designer.scale - y;
     var rX = cosR * newX + sinR * newY;
     var rY = - sinR * newX + cosR * newY;
-
-
 
     if(this.resize === 'top-handler'
       || this.resize === 'right-top-handler'
@@ -143,19 +140,19 @@ var PanelSelectedView = Backbone.View.extend({
       x = parseInt(x - (rY - this.originHeight / 2) * sinR / 2);
       y = parseInt(y + (rY - this.originHeight / 2) * cosR / 2);
     }
-    if(this.resize === 'right-handler'
-      || this.resize === 'right-bottom-handler'
-      || this.resize === 'right-top-handler'){
-      width = parseInt(this.originWidth / 2 + rX);
-      x = parseInt(x + (rX - this.originWidth / 2) * cosR / 2);
-      y = parseInt(y + (rX - this.originWidth / 2) * sinR / 2);
-    }
     if(this.resize === 'left-handler'
       || this.resize === 'left-bottom-handler'
       || this.resize === 'left-top-handler'){
       width = parseInt(this.originWidth / 2 - rX);
       x = parseInt(x + (rX + this.originWidth / 2) * cosR / 2);
       y = parseInt(y + (rX + this.originWidth / 2) * sinR / 2);
+    }
+    if(this.resize === 'right-handler'
+      || this.resize === 'right-bottom-handler'
+      || this.resize === 'right-top-handler'){
+      width = parseInt(this.originWidth / 2 + rX);
+      x = parseInt(x + (rX - this.originWidth / 2) * cosR / 2);
+      y = parseInt(y + (rX - this.originWidth / 2) * sinR / 2);
     }
 
     this.model.set({
