@@ -784,7 +784,11 @@ body {
   height: 12px;
   line-height: 12px;
 }
-#object-hover,
+#object-hover {
+  position: absolute;
+  border: 1px dashed #669966;
+  z-index: 1000;
+}
 #object-selected {
   position: absolute;
   border: 1px solid #669966;
