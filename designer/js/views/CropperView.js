@@ -85,7 +85,6 @@ var CropperView = Backbone.View.extend({
     var moveY = - sinR * newX + cosR * newY;
     sX = parseInt(this.originSX - moveX);
     sY = parseInt(this.originSY - moveY);
-    console.log(sY);
 
     if(sX < 0){
       sX = 0;

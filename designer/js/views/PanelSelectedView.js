@@ -21,20 +21,45 @@ var PanelSelectedView = Backbone.View.extend({
   },
 
   render: function(){
-    var x, y, width, height;
+    var x = this.model.get('x');
+    var y = this.model.get('y');
+    var width = this.model.get('_actualWidth') || this.model.get('width');
+    var height = this.model.get('_actualHeight') || this.model.get('height');
+    var rotate = this.model.get('rotate')||0;
 
-    x = this.model.get('x');
-    y = this.model.get('y');
-    width = this.model.get('_actualWidth') || this.model.get('width');
-    height = this.model.get('_actualHeight') || this.model.get('height');
-    this.$el.css({
-      'margin-left': parseInt((x - width / 2) * designer.scale) - 1,
-      'margin-top': parseInt((y - height / 2) * designer.scale) - 1,
-      width: parseInt(width * designer.scale),
-      height: parseInt(height * designer.scale)
-    });
+    if(this.model.get('_cropping')){
+      var sWidth = this.model.get('sWidth');
+      var sHeight = this.model.get('sHeight');
+      var sX = this.model.get('sX');
+      var sY = this.model.get('sY');
+      var originalWidth = this.model.get('_originalWidth');
+      var originalHeight = this.model.get('_originalHeight');
+      var widthScale = width / sWidth;
+      var heightScale = height / sHeight;
+      var sinR = Math.sin(Math.PI * rotate / 180);
+      var cosR = Math.cos(Math.PI * rotate / 180);
 
-    var rotate = this.model.get('rotate');
+      var rX = (2 * sX - originalWidth + sWidth) * widthScale / 2;
+      var rY = (2 * sY - originalHeight + sHeight) * heightScale / 2;
+
+      console.log('rX = ' + rX + ', rY = ' + rY);
+
+      this.$el.css({
+        'margin-left': parseInt((x - originalWidth * widthScale / 2 - (cosR * rX - sinR * rY)) * designer.scale) - 1,
+        'margin-top': parseInt((y - originalHeight * heightScale / 2 - (sinR * rX + cosR * rY)) * designer.scale) - 1,
+        width: parseInt(widthScale * originalWidth * designer.scale),
+        height: parseInt(heightScale * originalHeight * designer.scale)
+      });
+
+    }else{
+      this.$el.css({
+        'margin-left': parseInt((x - width / 2) * designer.scale) - 1,
+        'margin-top': parseInt((y - height / 2) * designer.scale) - 1,
+        width: parseInt(width * designer.scale),
+        height: parseInt(height * designer.scale)
+      });
+    }
+
     if(rotate){
       this.$el.rotate(rotate);
     }
@@ -44,14 +69,12 @@ var PanelSelectedView = Backbone.View.extend({
   selectedRender: function(){
     if(this.model.get('_cropping')){
       if(!this.cropper){
-        this.$el.hide();
         this.cropper = new CropperView({model: this.model});
       }
     }else{
       if(this.cropper){
         this.cropper.close();
         delete this.cropper;
-        this.$el.show();
       }
     }
     this.render();
