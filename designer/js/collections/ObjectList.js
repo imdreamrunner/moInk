@@ -1,6 +1,9 @@
 var ObjectList = Backbone.Collection.extend({
   model: PanelObject,
 
+  initialize: function(){
+  },
+
   selected: function(){
     return this.filter(function(object){
       return object.get('_selected');

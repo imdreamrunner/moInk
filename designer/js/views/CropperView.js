@@ -5,8 +5,20 @@ var CropperView = Backbone.View.extend({
     _.bindAll(this, 'mouseDown', 'doMove', 'endMove', 'doCrop', 'endCrop');
     this.$el.html($('#crop-handler').html());
     $('#panel-float').append(this.$el);
-    this.render();
-    this.listenTo(this.model, 'change', this.render);
+    this.$el.hide();
+    this.listenTo(designer.objectList, 'crop', this.onCrop);
+  },
+
+  onCrop: function(model, isCropping){
+    if(isCropping){
+      this.model = model;
+      this.listenTo(this.model, 'change', this.render);
+      this.$el.show();
+      this.render();
+    }else{
+      this.close();
+    }
+
   },
 
   render: function(){
@@ -212,8 +224,7 @@ var CropperView = Backbone.View.extend({
   },
 
   close: function(){
-    this.off();
-    this.stopListening();
-    this.remove();
+    this.stopListening(this.model);
+    this.$el.hide();
   }
 });

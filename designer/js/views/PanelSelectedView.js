@@ -3,21 +3,30 @@ var PanelSelectedView = Backbone.View.extend({
 
   initialize: function(){
     _.bindAll(this, 'mouseDown', 'doMove', 'endMove', 'doResize', 'endResize');
-
+    this.listenTo(designer.objectList, 'select', this.onSelect);
     $('#panel-float').append(this.$el);
-
-    this.listenTo(this.model, 'change', this.change);
-    this.listenTo(this.model, 'destroy', this.close);
-
-    this.selectedRender();
-
-    if(this.model.get('type') !== 'text'){
-      this.$el.html($('#resize-handler').html());
-    }
+    this.$el.hide();
   },
 
   events: {
     'mousedown': 'mouseDown'
+  },
+
+  onSelect: function(model, selected){
+    if(selected){
+      this.model = model;
+      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.close);
+      this.$el.show();
+      this.render();
+      if(this.model.get('type') !== 'text'){
+        this.$el.html($('#resize-handler').html());
+      }else{
+        this.$el.html('');
+      }
+    }else{
+      this.close();
+    }
   },
 
   render: function(){
@@ -25,7 +34,7 @@ var PanelSelectedView = Backbone.View.extend({
     var y = this.model.get('y');
     var width = this.model.get('_actualWidth') || this.model.get('width');
     var height = this.model.get('_actualHeight') || this.model.get('height');
-    var rotate = this.model.get('rotate')||0;
+    var rotate = this.model.get('rotate') || 0;
 
     if(this.model.get('_cropping')){
       var sWidth = this.model.get('sWidth');
@@ -64,20 +73,6 @@ var PanelSelectedView = Backbone.View.extend({
       this.$el.rotate(rotate);
     }
     this.$el.selectLess();
-  },
-
-  selectedRender: function(){
-    if(this.model.get('_cropping')){
-      if(!this.cropper){
-        this.cropper = new CropperView({model: this.model});
-      }
-    }else{
-      if(this.cropper){
-        this.cropper.close();
-        delete this.cropper;
-      }
-    }
-    this.render();
   },
 
   mouseDown: function(e){
@@ -174,26 +169,14 @@ var PanelSelectedView = Backbone.View.extend({
     });
   },
 
-  change: function(){
-    if(this.model.get('_selected')){
-      this.selectedRender();
-    }else{
-      this.close();
-    }
-  },
-
   close: function(){
-    /*
-     * This has been rewrite from hover view.
-     */
     this.model.set({
       _cropping: false
     });
     if(this.cropper && this.cropper.close)
       this.cropper.close();
-    this.off();
-    this.stopListening();
-    this.remove();
+    this.stopListening(this.model);
+    this.$el.hide();
   }
 
 });

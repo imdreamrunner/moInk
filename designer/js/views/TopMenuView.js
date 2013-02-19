@@ -29,7 +29,7 @@ var TopMenuView = Backbone.View.extend({
       this.topBarView = new TopBarView({bar: this.tab});
     }
 
-    this.listenTo(designer.objectList, 'change:_selected', this.changeSelect);
+    this.listenTo(designer.objectList, 'select', this.changeSelect);
   },
 
   modelDelete: function(){

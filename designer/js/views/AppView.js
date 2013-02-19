@@ -13,6 +13,9 @@ var AppView = Backbone.View.extend({
     designer.topMenuView = new TopMenuView();
     designer.panelView = new PanelView();
     designer.objectListView = new ObjectListView();
+    designer.panelHoverView = new PanelHoverView();
+    designer.panelSelectView = new PanelSelectedView();
+    designer.cropperView = new CropperView();
 
     if(!designId){
       /* Develop Information */

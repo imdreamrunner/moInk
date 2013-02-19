@@ -31,8 +31,6 @@ var PanelView = Backbone.View.extend({
 
     this.listenTo(designer.objectList, 'add', this.addOne);
     this.listenTo(designer.objectList, 'sort', this.addAll);
-    this.listenTo(designer.objectList, 'change:_selected', this.changeSelect);
-    this.listenTo(designer.objectList, 'change:_hover', this.changeHover);
   },
 
   resize: function(){
@@ -74,24 +72,6 @@ var PanelView = Backbone.View.extend({
     }
     this.panelObjects.length = 0;
     _.each(designer.objectList.models, this.addOne);
-  },
-
-  changeSelect: function(model, selected){
-    if(selected){
-      var panelSelectedView = new PanelSelectedView({model: model});
-    }
-  },
-
-  changeHover: function(){
-    if(this.hoverObjectView.close){
-      this.hoverObjectView.close();
-    }
-
-    var hoverList = designer.objectList.hover();
-    if(hoverList.length > 0){
-      var newHover = hoverList[hoverList.length - 1];
-      this.hoverObjectView = new PanelHoverView({model: newHover});
-    }
   },
 
   mouseMove: function(e){

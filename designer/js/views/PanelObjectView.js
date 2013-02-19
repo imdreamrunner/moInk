@@ -33,7 +33,6 @@ var PanelObjectView = Backbone.View.extend({
           }
           if(this.model.get('attachment')){
             this.imageObject.src = '/attachments/images/' + this.model.get('attachment');
-            console.log('/attachments/images/' + this.model.get('attachment'));
           }else{
             this.imageObject.src = this.model.get('source');
           }
@@ -170,7 +169,6 @@ var PanelObjectView = Backbone.View.extend({
         color: this.model.get('color')
       },
       success: function(result){
-        console.log(result);
         _this.textImage = new Image();
         _this.textImage.onload = function(){
           _this.model.set({

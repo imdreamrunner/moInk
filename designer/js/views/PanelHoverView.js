@@ -3,7 +3,18 @@ var PanelHoverView = Backbone.View.extend({
 
   initialize: function(){
     $('#panel-float').append(this.$el);
-    this.render();
+    this.$el.hide();
+    this.listenTo(designer.objectList, 'hover', this.onHover);
+  },
+
+  onHover: function(model, isHover){
+    if(isHover){
+      this.model = model;
+      this.$el.show();
+      this.render();
+    }else{
+      this.close();
+    }
   },
 
   render: function(){
@@ -29,8 +40,7 @@ var PanelHoverView = Backbone.View.extend({
   },
 
   close: function(){
-    this.off();
-    this.stopListening();
-    this.remove();
+    this.stopListening(this.model);
+    this.$el.hide();
   }
 });
