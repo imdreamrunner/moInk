@@ -12,7 +12,7 @@ body{
   -webkit-transition:opacity 0.5s linear;
 }
 
-#header{
+header{
   position: absolute;
   width: 100%;
   background: url("../images/dust.png");
@@ -27,7 +27,7 @@ body{
   z-index: 12;
 }
 
-#header .logo{
+header .logo{
   float: left;
   display: block;
   height: 100px;
@@ -41,7 +41,7 @@ body{
   }
 }
 
-#header .sep{
+header .sep{
   float: left;
   width: 1px;
   height: 100px;
@@ -49,7 +49,7 @@ body{
   opacity: 0.6;
 }
 
-#header .nav-button{
+header .nav-button{
   float: left;
   width: 270px;
   height: 100px;
@@ -59,7 +59,7 @@ body{
   }
 }
 
-#header .nav-button .hover{
+header .nav-button .hover{
   .transition-opacity;
   opacity: 0;
   position: absolute;
@@ -69,7 +69,7 @@ body{
   z-index: 13;
 }
 
-#header .nav-button a{
+header .nav-button a{
   position: absolute;
   z-index: 14;
   display: block;
@@ -86,12 +86,36 @@ body{
   }
 }
 
-#header .explore a{
+header .explore a{
   background: url("../images/explore.png") center 8px no-repeat;
 }
 
-#header .designer a{
+header .designer a{
   background: url("../images/designer.png") center 10px no-repeat;
+}
+
+footer{
+  height: 140px;
+}
+
+footer .footer-logo{
+  position: absolute;
+  overflow: hidden;
+  margin: 10px 0 0 370px;
+  width: 200px;
+  height: 120px;
+  background: url("../images/footer-logo.png") center 20px no-repeat;
+  text-align: center;
+  color: #b5a596;
+  font-family: 'Libre Baskerville', serif;
+  line-height: 200px;
+  font-size: 10px;
+  cursor: default;
+  opacity: 0.6;
+  .transition-opacity;
+  &:hover{
+    opacity: 1;
+  }
 }
 
 #user-box{
@@ -152,9 +176,10 @@ body{
 #main{
   background: #f1f1f1;
   border: 1px solid #ddd3c7;
-  border-bottom: none;
   border-top: none;
-  box-shadow: 0 0 8px #ddd3c7;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 2px 8px #ddd3c7;
   min-height: 100%;
 }
 
