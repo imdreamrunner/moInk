@@ -190,7 +190,7 @@ var PanelSelectedView = Backbone.View.extend({
         || this.resize === 'right-top-handler'){
         changeX = rX - this.originWidth / 2 - (originalWidth - sWidth - sX) * widthScale ;
         changeWidthScale = Math.min(originalWidth / (originalWidth + changeX / widthScale),
-          originalWidth / (sX + sWidth));;
+          originalWidth / (sX + sWidth));
         sX = parseInt(sX * changeWidthScale);
         sWidth = parseInt(sWidth * changeWidthScale);
       }
