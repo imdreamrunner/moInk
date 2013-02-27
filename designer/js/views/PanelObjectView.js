@@ -30,7 +30,7 @@ var PanelObjectView = Backbone.View.extend({
           this.imageObject.onload = this.drawImage;
           this.imageObject.onerror = function(){
             console.log('cannot load image');
-          }
+          };
           if(this.model.get('attachment')){
             this.imageObject.src = '/attachments/images/' + this.model.get('attachment');
           }else{
@@ -174,9 +174,9 @@ var PanelObjectView = Backbone.View.extend({
           _this.model.set({
             _actualWidth: _this.textImage.width,
             _actualHeight: _this.textImage.height
-          })
+          });
           _this.drawText();
-        }
+        };
         _this.textImage.src = result.dataURL;
       }
     });
@@ -213,52 +213,8 @@ var PanelObjectView = Backbone.View.extend({
     context.save();
     context.translate(x, y);
     context.drawImage(this.textImage, - this.textImage.width / 2, - this.textImage.height / 2);
-    context.restore()
-    /*
-    var x = this.model.get('x') || 0;
-    var y = this.model.get('y') || 0;
-    var fontSize = this.model.get('fontSize');
-    var fontFamily = this.model.get('fontFamily');
-    var color = this.model.get('color');
+    context.restore();
 
-    context.font = fontSize + 'px ' + fontFamily;
-    context.fillStyle = color;
-    context.textBaseline = 'top';
-
-    var text = this.model.get('text');
-    var lines = text.split(/\r\n|\r|\n/);
-
-    var maxWidth = 0;
-    var currentWidth = 0;
-
-    for(var line in lines){
-      context.fillText(lines[line], x, y + fontSize * line * 1.2);
-      currentWidth = context.measureText(lines[line]).width;
-      if(currentWidth > maxWidth){
-        maxWidth = currentWidth;
-      }
-    }
-
-    var width = maxWidth;
-    var height = parseInt(fontSize * lines.length * 1.2);
-
-    this.model.set({
-      _actualWidth: width,
-      _actualHeight: height
-    });
-
-    if(isNaN(x)){
-      x = parseInt((designer.width - width) / 2);
-    }
-    if(isNaN(y)){
-      y = parseInt((designer.height - height) / 2);
-    }
-    this.model.set({
-      x: x,
-      y: y
-    });
-
-    */
   },
 
   isHover: function(mouseX, mouseY){

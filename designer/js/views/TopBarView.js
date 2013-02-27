@@ -44,20 +44,8 @@ var TopBarView = Backbone.View.extend({
   /* for default bar */
 
   wizardBar : function(){
-    this.$el.find('.to-json').click(function(){
-      var postSuccess = function(res){
-        //console.log(res);
-        $('.ul-top-bar').append('<img src="' + res + '" />');
-      };
-
-      $.ajax({
-        type: "POST",
-        url: DESIGNER_URL + 'getPic',
-        data: {
-          content: JSON.stringify(designer.objectList.toJSON())
-        },
-        success: postSuccess
-      });
+    this.$el.find('.download').click(function(){
+      window.open('/designs/' + designId);
     });
 
     this.$el.find('.save').on('click', function(){

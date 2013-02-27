@@ -21,15 +21,18 @@ module.exports = function(mongoose){
     users: [{
       user_id: 'ObjectId',
       level: {
+        /* Is this project public? 1 for yes. */
         type: Number,
         default: 1
       }
     }],
     type: {
+      /* Is it a postcard */
       type: Number,
       default: 1
     },
     version: {
+      /* editor version */
       type: Number,
       default: 1
     },
