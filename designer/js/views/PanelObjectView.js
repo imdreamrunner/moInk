@@ -222,17 +222,23 @@ var PanelObjectView = Backbone.View.extend({
     var y = this.model.get('y');
     var width = this.model.get('_actualWidth') || this.model.get('width');
     var height = this.model.get('_actualHeight') || this.model.get('height');
-    if((x - width / 2) <= mouseX && mouseX <= (x + width / 2)){
-      if((y - height / 2) <= mouseY && mouseY <= (y + height / 2)){
-        return true;
-      }
-    }
-    return false;
+
+    var rotate = this.model.get('rotate')||0;
+    var sinR = Math.sin(Math.PI * rotate / 180);
+    var cosR = Math.cos(Math.PI * rotate / 180);
+
+    var newX = mouseX - x;
+    var newY = mouseY - y;
+    var rX = cosR * newX + sinR * newY;
+    var rY = - sinR * newX + cosR * newY;
+
+    return (Math.abs(rX) < width / 2 && Math.abs(rY) < height / 2);
   },
 
   mouseOver: function(mouseX, mouseY){
     var isHover = this.isHover(mouseX, mouseY);
     this.model.set({_hover: isHover});
+    return isHover;
   },
 
   close: function(){

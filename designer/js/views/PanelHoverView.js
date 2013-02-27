@@ -8,13 +8,32 @@ var PanelHoverView = Backbone.View.extend({
   },
 
   onHover: function(model, isHover){
+    var hoverList = designer.objectList.hover();
+    if(hoverList.length === 0){
+      console.log('here2');
+      this.close();
+    }else{
+      this.model = hoverList[hoverList.length - 1];
+      this.$el.show();
+      this.render();
+    }
+    /*
     if(isHover){
       this.model = model;
       this.$el.show();
       this.render();
     }else{
-      this.close();
+      var hoverList = designer.objectList.hover();
+      if(hoverList.length === 0){
+        console.log('here2');
+        this.close();
+      }else{
+        this.model = hoverList[0];
+        this.$el.show();
+        this.render();
+      }
     }
+    */
   },
 
   render: function(){
@@ -35,6 +54,8 @@ var PanelHoverView = Backbone.View.extend({
     var rotate = this.model.get('rotate');
     if(rotate){
       this.$el.rotate(rotate);
+    }else{
+      this.$el.rotate(0);
     }
     this.$el.selectLess();
   },
