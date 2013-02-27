@@ -2,6 +2,7 @@
  * User Model
  */
 var sha1 = require('sha1');
+var random = require('../utilities/random.js');
 
 module.exports = function(mongoose){
 
@@ -12,6 +13,7 @@ module.exports = function(mongoose){
     },
     email: String,
     password: String,
+    salt: String,
     reg_date: {
       type: Date,
       default: Date.now
@@ -19,7 +21,8 @@ module.exports = function(mongoose){
   });
 
   schema.statics.signUp = function(userInfo, callback){
-    userInfo.password = sha1(userInfo.password);
+    userInfo.salt = random.randomString(6);
+    userInfo.password = sha1(userInfo.password + userInfo.salt);
     this.find({email: userInfo.email}, function(err, users){
       if(err){
         // todo
@@ -41,8 +44,7 @@ module.exports = function(mongoose){
   };
 
   schema.statics.logIn = function(userInfo, callback){
-    userInfo.password = sha1(userInfo.password);
-    this.find(userInfo, function(err, users){
+    this.find({email: userInfo.email}, function(err, users){
       if(err){
         // todo
       }
@@ -50,13 +52,20 @@ module.exports = function(mongoose){
         // no user found.
         callback({
           err: 1,
-          info: 'Email or password is incorrect.'
+          info: 'Email is not registered.'
         });
       }else{
-        callback({
-          err: 0,
-          userInfo: users[0]
-        });
+        if(users[0].password == sha1(userInfo.password + (users[0].salt || ''))){
+          callback({
+            err: 0,
+            userInfo: users[0]
+          });
+        }else{
+          callback({
+            err: 2,
+            info: 'Password is incorrect.'
+          });
+        }
       }
     });
   };

@@ -48,6 +48,7 @@ module.exports = function(app, models){
       }else{
         var currentUser = result.userInfo
         delete currentUser.password; // There is no need to store user's password in session.
+        delete currentUser.salt;
         req.session.user = currentUser;
         res.json(result);
       }
