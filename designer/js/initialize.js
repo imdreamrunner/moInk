@@ -6,6 +6,10 @@ var designer = {};
 
 var DESIGNER_URL = '/designer/';
 
+function loading_status (message) {
+  $('#loader').find('.status').html(message);
+}
+
 var templateList = [
   'templates',
   'moBox',
@@ -39,16 +43,17 @@ var ModuleList = [
 ];
 
 var initialize = function () {
+  loading_status('loading panel core...');
   $.ajax('templates/main.html', {
     success: function (content) {
       $('body').prepend(content);
-      console.log('Panel content is loaded.')
       loadTemplates(templateList);
     }
   });
 };
 
 var loadTemplates = function (templates) {
+  loading_status('loading panel templates...');
   $.ajax('templates/' + templates[0] + '.html', {
     success: function (content) {
       $('body').append(content);
@@ -56,7 +61,6 @@ var loadTemplates = function (templates) {
       if (templates.length) {
         loadTemplates(templates);
       } else {
-        console.log('Templates are loaded.');
         loadWebFont();
       }
     }
@@ -64,6 +68,7 @@ var loadTemplates = function (templates) {
 };
 
 var loadWebFont = function () {
+  loading_status('loading fonts...');
   $.loadScript(DESIGNER_URL + 'js/libs/webfont.js', function () {
     WebFont.load({
       custom: { families: ['Nunito', 'Nunito Light', 'Lustria'],
@@ -84,8 +89,8 @@ var loadWebFont = function () {
 };
 
 var loadModule = function (modules, callback) {
+  loading_status('loading module ' + modules[0] + '...');
   $.loadScript(DESIGNER_URL + 'js/' + modules[0] + '.js', function (res) {
-    //console.log(modules[0] + ' is loaded.')
     modules.shift();
     if (modules.length > 0) {
       loadModule(modules, callback);
@@ -96,9 +101,12 @@ var loadModule = function (modules, callback) {
 };
 
 var startApp = function () {
-  console.log('All modules are loaded.');
-  $('#loading').remove();
+  loading_status('starting designer...');
+  $('#loader').delay(2000).fadeOut(1000);
+  setTimeout(function () {
+    $('#loader').remove();
+  }, 4000);
   designer.appView = new AppView();
 };
 
-$(document).ready(initialize);
+window.onload = initialize;

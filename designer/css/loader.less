@@ -1,7 +1,93 @@
-#loading {
+@keyframes blinking {
+  10% { opacity: 1; }
+  61% { opacity: 0; }
+  90% { opacity: 1; }
+}
+
+@-webkit-keyframes blinking {
+  10% { opacity: 1; }
+  61% { opacity: 0; }
+  90% { opacity: 1; }
+}
+
+.blinking {
+   animation: blinking 3s infinite;
+   -webkit-animation: blinking 3s infinite;
+ }
+
+.blinking2 {
+  animation: blinking 3s infinite;
+  -webkit-animation: blinking 3s infinite;
+  animation-delay: 1.5s;
+  -webkit-animation-delay: 1.5s; /* Safari and Chrome */
+}
+
+@keyframes rotating {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes rotating {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+
+.rotating {
+  animation: rotating 15s infinite linear;
+  -webkit-animation: rotating 15s infinite linear;
+}
+
+#loader {
   position: absolute;
-  z-index: 999999;
-  background: url('../images/dust.png');
+  z-index: 1000000;
+  background: url('../images/paper_fibers.png') repeat;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+
+  .main-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -264px 0 0 -450px;
+    width: 900px;
+    height: 528px;
+    background: url('../images/splash-bg.png');
+  }
+
+  .status {
+    position: absolute;
+    color: #dae1dc;
+    font-size: 12px;
+    margin: 290px 0 0 250px;
+    width: 400px;
+    text-align: center;
+    .blinking2;
+  }
+
+  .ink {
+    position: absolute;
+    width: 900px;
+    height: 528px;
+    background: url('../images/splash-ink.png');
+    .blinking
+  }
+
+  .flower1 {
+    position: absolute;
+    margin: 140px 0 0 70px;
+    width: 450px;
+    height: 450px;
+    background: url('../images/splash-flower1.png') center no-repeat;
+    .rotating;
+  }
+
+  .flower2 {
+    position: absolute;
+    margin: -50px 0 0 390px;
+    width: 331px;
+    height: 331px;
+    background: url('../images/splash-flower2.png') center no-repeat;
+    .rotating;
+  }
 }
