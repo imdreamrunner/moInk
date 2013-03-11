@@ -1,6 +1,6 @@
 /*
-  This file will be run before all other classes.
-*/
+ This file will be run before all other classes.
+ */
 
 var designer = {};
 
@@ -38,64 +38,64 @@ var ModuleList = [
   'views/TopMenuView'
 ];
 
-var initialize = function(){
+var initialize = function () {
   $.ajax('templates/main.html', {
-    success: function(content){
+    success: function (content) {
       $('body').prepend(content);
       console.log('Panel content is loaded.')
       loadTemplates(templateList);
     }
   });
-}
+};
 
-var loadTemplates = function(templates){
+var loadTemplates = function (templates) {
   $.ajax('templates/' + templates[0] + '.html', {
-    success: function(content){
+    success: function (content) {
       $('body').append(content);
       templates.shift();
-      if(templates.length){
+      if (templates.length) {
         loadTemplates(templates);
-      }else{
-        console.log('Templates are loaded.')
+      } else {
+        console.log('Templates are loaded.');
         loadWebFont();
       }
     }
   });
-}
+};
 
-var loadWebFont = function(){
-  $.loadScript(DESIGNER_URL + 'js/libs/webfont.js', function(){
+var loadWebFont = function () {
+  $.loadScript(DESIGNER_URL + 'js/libs/webfont.js', function () {
     WebFont.load({
-      custom: { families: ['Nunito','Nunito Light','Lustria'],
-        urls: ['fonts/Nunito.css','fonts/NunitoLight.css','fonts/Lustria.css']
+      custom: { families: ['Nunito', 'Nunito Light', 'Lustria'],
+        urls: ['fonts/Nunito.css', 'fonts/NunitoLight.css', 'fonts/Lustria.css']
       },
-      loading: function(){
+      loading: function () {
         console.log("Loading fonts...");
       },
-      active: function(){
-        console.log('Fonts are loaded.')
+      active: function () {
+        console.log('Fonts are loaded.');
         loadModule(ModuleList, startApp);
       },
-      inactive: function(){
+      inactive: function () {
         console.log("Failed to load fonts.");
       }
     });
   });
 };
 
-var loadModule = function(modules, callback){
-  $.loadScript(DESIGNER_URL + 'js/' + modules[0] + '.js', function(res){
+var loadModule = function (modules, callback) {
+  $.loadScript(DESIGNER_URL + 'js/' + modules[0] + '.js', function (res) {
     //console.log(modules[0] + ' is loaded.')
     modules.shift();
-    if(modules.length > 0){
+    if (modules.length > 0) {
       loadModule(modules, callback);
-    }else{
+    } else {
       callback();
     }
   });
 };
 
-var startApp = function(){
+var startApp = function () {
   console.log('All modules are loaded.');
   $('#loading').remove();
   designer.appView = new AppView();

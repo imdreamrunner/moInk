@@ -678,7 +678,7 @@ body {
 .ul-top-bar li {
   list-style: none;
   height: 80px;
-  display: inline-block;
+  display: table-cell;
   vertical-align: top;
   padding: 0 4px;
 }
