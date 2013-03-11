@@ -97,8 +97,8 @@ var loadModule = function (modules, callback) {
 
 var startApp = function () {
   console.log('All modules are loaded.');
-  //$('#loading').remove();
+  $('#loading').remove();
   designer.appView = new AppView();
 };
 
-initialize();
+$(document).ready(initialize);
