@@ -4,9 +4,6 @@
 
 var designer = {};
 
-var MARGIN_X = 40;
-var MARGIN_Y = 30;
-
 var DESIGNER_URL = '/designer/';
 
 var templateList = [

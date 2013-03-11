@@ -1,37 +1,6 @@
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function(app, models){
-  app.post('/designer/getPic', function(req, res){
-
-    var Canvas = require('canvas')
-      , canvas = new Canvas(200,200)
-      , ctx = canvas.getContext('2d');
-
-    ctx.font = '30px Impact';
-    ctx.rotate(.1);
-    ctx.fillText("Awesome!", 50, 100);
-
-    var te = ctx.measureText('Awesome!');
-    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-    ctx.beginPath();
-    ctx.lineTo(50, 102);
-    ctx.lineTo(50 + te.width, 102);
-    ctx.stroke();
-
-
-    res.set('Content-Type', 'image/png');
-    res.write(canvas.toDataURL());
-    res.end();
-    /*
-
-     res.json({
-     ok: 'ok',
-     content: req.body.content
-     });
-
-     */
-  });
-
   app.get('/designer/:id', function(req, res){
     models.design.find({_id: new ObjectId(req.params.id)}).exec(function(err, designs){
       if(designs[0]){

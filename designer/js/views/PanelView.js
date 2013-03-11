@@ -21,12 +21,6 @@ var PanelView = Backbone.View.extend({
   initialize: function(){
     _.bindAll(this, 'mouseMove', 'addOne', 'addAll');
 
-    if(!designer.width){
-      designer.width = 1748;
-    }
-    if(!designer.height){
-      designer.height = 1240;
-    }
     this.resize();
 
     this.listenTo(designer.objectList, 'add', this.addOne);
@@ -34,6 +28,9 @@ var PanelView = Backbone.View.extend({
   },
 
   resize: function(){
+    var MARGIN_X = 40;
+    var MARGIN_Y = 30;
+
     this.pageWidth = document.documentElement.clientWidth;
     this.pageHeight = document.documentElement.clientHeight;
     var availableWidth = this.pageWidth - this.offset.left - this.offset.right - 2 * MARGIN_X;
