@@ -10,6 +10,14 @@ function loading_status (message) {
   $('#loader').find('.status').html(message);
 }
 
+function loaded () {
+  loading_status("starting designer...");
+  $('#loader').delay(2000).fadeOut(1000);
+  setTimeout(function () {
+    $('#loader').remove();
+  }, 4000);
+}
+
 var templateList = [
   'templates',
   'moBox',
@@ -101,11 +109,7 @@ var loadModule = function (modules, callback) {
 };
 
 var startApp = function () {
-  loading_status('starting designer...');
-  $('#loader').delay(2000).fadeOut(1000);
-  setTimeout(function () {
-    $('#loader').remove();
-  }, 4000);
+  loading_status('designer is loaded...');
   designer.appView = new AppView();
 };
 

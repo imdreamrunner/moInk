@@ -8,6 +8,7 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function () {
+    loading_status("loading design...");
 
     var loadContent = function (res) {
       designer.design = res.design;
@@ -31,6 +32,7 @@ var AppView = Backbone.View.extend({
         _.each(content, function (object) {
           designer.objectList.add(object);
         });
+        loaded();
       }
     };
     $.ajax({
