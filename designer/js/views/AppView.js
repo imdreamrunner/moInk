@@ -10,7 +10,9 @@ var AppView = Backbone.View.extend({
   initialize: function () {
 
     var loadContent = function (res) {
-      var settings = JSON.parse(res.settings || '[]');
+      designer.design = res.design;
+
+      var settings = JSON.parse(designer.design.settings || '[]');
 
       designer.width = settings.width || 1748;
       designer.height = settings.height || 1240;
@@ -24,7 +26,6 @@ var AppView = Backbone.View.extend({
       designer.panelSelectView = new PanelSelectedView();
       designer.cropperView = new CropperView();
 
-      designer.design = res.design;
       if (designer.design.content && designer.design.content != '') {
         var content = JSON.parse(designer.design.content);
         _.each(content, function (object) {

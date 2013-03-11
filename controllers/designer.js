@@ -29,6 +29,7 @@ module.exports = function(app, models){
       if(designs[0]){
         var design = designs[0];
         design.content = req.body.content;
+        design.settings = req.body.settings;
         design.save(function(){
           res.json({
             err: 0
