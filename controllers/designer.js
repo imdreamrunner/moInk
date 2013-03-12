@@ -4,6 +4,7 @@ var url = require('url');
 var http = require('http');
 var panel = require('../utilities/panel');
 var Canvas = require('canvas');
+var path = require('path');
 
 module.exports = function (app, models) {
   app.get('/designer/:id', function (req, res) {
@@ -191,14 +192,16 @@ module.exports = function (app, models) {
         var content = JSON.parse(design.content);
         var settings = JSON.parse(design.settings || '{}');
 
-        var width = settings.width || 1748;
-        var height = settings.height || 1240;
+        var width = parseInt(settings.width || 1748);
+        var height = parseInt(settings.height || 1240);
 
         var canvas = new Canvas(width, height);
         var context = canvas.getContext('2d');
 
         var layers = [];
         var index = 0;
+
+        console.log(settings);
 
         var addLayer = function (layer) {
           layers.push(layer);
@@ -216,8 +219,8 @@ module.exports = function (app, models) {
         };
 
         var output = function () {
-
-          var out = fs.createWriteStream('./designs/' + objectId.toString() + '.png');
+          var dir = path.join(__dirname, '../designs/');
+          var out = fs.createWriteStream(dir + objectId.toString() + '.png');
           var stream = canvas.pngStream();
 
           stream.on('data', function(chunk){

@@ -82,7 +82,7 @@ var TopBarView = Backbone.View.extend({
 
   canvasWidthChangeHandler: function () {
     console.log('width change');
-    designer.width = this.$el.find('.canvas-width').val();
+    designer.width = parseInt(this.$el.find('.canvas-width').val());
   },
 
   canvasHeightChange: function () {
@@ -91,7 +91,7 @@ var TopBarView = Backbone.View.extend({
   },
 
   canvasHeightChangeHandler: function () {
-    designer.height = this.$el.find('.canvas-height').val();
+    designer.height = parseInt(this.$el.find('.canvas-height').val());
   },
 
   saveAll: function (callback) {

@@ -32,8 +32,8 @@ var AppView = Backbone.View.extend({
         _.each(content, function (object) {
           designer.objectList.add(object);
         });
-        loaded();
       }
+      loaded();
     };
     $.ajax({
       type: "POST",

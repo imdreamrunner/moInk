@@ -1,13 +1,14 @@
+var path = require('path');
 exports.draw = function(Canvas, object, settings, callback){
 
   function drawImage(){
 
-    var ATTACHMENT_DIR =  './attachments/images/';
+    var ATTACHMENT_DIR =  path.join(__dirname, '../attachments/images/');
     var img = new Canvas.Image;
 
     img.onload = function(){
 
-      var canvas = new Canvas(settings.width || 1748, settings.height || 1240)
+      var canvas = new Canvas(settings.width || 1748, settings.height || 1240);
       var context = canvas.getContext('2d');
 
       var rotate = object.rotate;
@@ -38,7 +39,7 @@ exports.draw = function(Canvas, object, settings, callback){
 
   function drawShape(){
 
-    var canvas = new Canvas(settings.width || 1748, settings.height || 1240)
+    var canvas = new Canvas(settings.width || 1748, settings.height || 1240);
     var context = canvas.getContext('2d');
 
     var x = object.x || 0;
@@ -60,7 +61,7 @@ exports.draw = function(Canvas, object, settings, callback){
   }
 
   function drawText(){
-    var canvas = new Canvas(settings.width || 1748, settings.height || 1240)
+    var canvas = new Canvas(settings.width || 1748, settings.height || 1240);
     var context = canvas.getContext('2d');
 
     var x = object.x || 0;
