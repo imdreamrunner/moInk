@@ -71,6 +71,8 @@ var PanelSelectedView = Backbone.View.extend({
 
     if(rotate){
       this.$el.rotate(rotate);
+    }else{
+      this.$el.rotate(0);
     }
     this.$el.selectLess();
   },
