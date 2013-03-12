@@ -50,7 +50,19 @@ var TopBarView = Backbone.View.extend({
     this.canvasHeightChange();
 
     this.$el.find('.download').click(function () {
-      window.open('/designs/' + designId);
+      $.ajax({
+        type: "POST",
+        url: DESIGNER_URL + 'createImage',
+        data: {
+          id: designId
+        },
+        success: function () {
+          setTimeout(function () {
+            window.open('/designs/' + designId + '.png');
+          }, 1000);
+          /* File cannot be access immediately after created, need to find a better way to solve this problem. */
+        }
+      });
     });
 
     this.$el.find('.save').on('click', function () {

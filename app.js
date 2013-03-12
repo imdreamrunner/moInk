@@ -26,6 +26,7 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
   app.use('/designer', require('less-middleware')({ src: path.join(__dirname, 'designer') }));
   app.use('/designer', express.static(path.join(__dirname, 'designer')));
+  app.use('/designs', express.static(path.join(__dirname, 'designs')));
 });
 
 app.configure('development', function(){
