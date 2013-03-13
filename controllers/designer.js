@@ -54,14 +54,21 @@ module.exports = function (app, models) {
     // App variables
     var designId = req.body.id;
     var fileURL = req.body.url;
-    var DOWNLOAD_DIR = './attachments/images/';
+    var DOWNLOAD_DIR = path.join(__dirname, '../attachments/' + designId + '/');
+
+    // Create attachments directory.
+    var exec = require('child_process').exec;
+    var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
+    var child = exec(mkdir, function(err, stdout, stderr) {
+      if (err) throw err;
+    });
 
     //download_file_httpget(file_url);
 
     fileInfo = {
       designId: designId,
       url: fileURL
-    }
+    };
 
     models.design.addAttachment(fileInfo, function (err, attachment) {
       var attachmentId = attachment._id;
@@ -98,14 +105,21 @@ module.exports = function (app, models) {
      */
 
     // App variables
-    var UPLOAD_DIR = './attachments/images/';
     var designId = req.body.id;
+    var UPLOAD_DIR = path.join(__dirname, '../attachments/' +  designId + '/');
     var fileURL = req.files.userPhoto.name;
+
+    // Create attachments directory.
+    var exec = require('child_process').exec;
+    var mkdir = 'mkdir -p ' + UPLOAD_DIR;
+    var child = exec(mkdir, function(err, stdout, stderr) {
+      if (err) throw err;
+    });
 
     fileInfo = {
       designId: designId,
       url: 'file://' + fileURL
-    }
+    };
 
     models.design.addAttachment(fileInfo, function (err, attachment) {
       var attachmentId = attachment._id;
@@ -212,7 +226,7 @@ module.exports = function (app, models) {
             //ends
             output();
           } else {
-            panel.draw(Canvas, content[index], settings, addLayer);
+            panel.draw(Canvas, objectId, content[index], settings, addLayer);
           }
         };
 
@@ -234,7 +248,8 @@ module.exports = function (app, models) {
           });
         };
 
-        panel.draw(Canvas, content[index], settings, addLayer);
+        console.log('here again');
+        panel.draw(Canvas, objectId, content[index], settings, addLayer);
 
       }
     });

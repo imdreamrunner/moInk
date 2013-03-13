@@ -32,7 +32,7 @@ var PanelObjectView = Backbone.View.extend({
             console.log('cannot load image');
           };
           if(this.model.get('attachment')){
-            this.imageObject.src = '/attachments/images/' + this.model.get('attachment');
+            this.imageObject.src = '/attachments/' + designId + '/' + this.model.get('attachment');
           }else{
             this.imageObject.src = this.model.get('source');
           }

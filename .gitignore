@@ -3,7 +3,7 @@
 
 .idea
 
-attachments/images/*
+attachments/*
 designs/*
 
 #for node.js

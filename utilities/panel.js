@@ -1,9 +1,10 @@
 var path = require('path');
-exports.draw = function(Canvas, object, settings, callback){
+exports.draw = function(Canvas, objectId, object, settings, callback){
+  console.log(objectId);
 
   function drawImage(){
 
-    var ATTACHMENT_DIR =  path.join(__dirname, '../attachments/images/');
+    var ATTACHMENT_DIR =  path.join(__dirname, '../attachments/');
     var img = new Canvas.Image;
 
     img.onload = function(){
@@ -33,8 +34,8 @@ exports.draw = function(Canvas, object, settings, callback){
       callback(canvas.toDataURL());
 
     };
-
-    img.src = ATTACHMENT_DIR + object.attachment;
+    console.log(ATTACHMENT_DIR + objectId.toString() + '/' + object.attachment);
+    img.src = ATTACHMENT_DIR + objectId.toString() + '/' + object.attachment;
   }
 
   function drawShape(){

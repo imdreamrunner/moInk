@@ -2,13 +2,13 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var path = require('path');
 
 module.exports = function(app, models){
-  app.get('/attachments/images/:filename', function(req, res){
+  app.get('/attachments/:designId/:filename', function(req, res){
     var fs = require('fs');
     var Canvas = require('canvas');
 
-    var ATTACHMENT_DIR =  path.join(__dirname, '../attachments/images/');
+    var ATTACHMENT_DIR =  path.join(__dirname, '../attachments/');
 
-    console.log(ATTACHMENT_DIR + req.params.filename);
+    console.log(ATTACHMENT_DIR + req.params.designId + '/' + req.params.filename);
 
     var img = new Canvas.Image;
     img.onerror = function(err){
@@ -30,6 +30,6 @@ module.exports = function(app, models){
         res.end(buf);
       });
     };
-    img.src = ATTACHMENT_DIR + req.params.filename;
+    img.src = ATTACHMENT_DIR + req.params.designId + '/' + req.params.filename;
   });
 };
