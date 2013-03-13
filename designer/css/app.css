@@ -702,6 +702,7 @@ body {
   border: 1px solid #C5C2C0;
   border-left: none;
   border-right: none;
+  overflow: hidden;
 }
 .object-list-item .object-list-icon {
   position: absolute;
@@ -719,7 +720,9 @@ body {
   color: #555250;
   line-height: 20px;
   height: 20px;
-  padding: 5px 0 5px 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px 0 0 30px;
   cursor: default;
 }
 .object-list-item:hover,
@@ -735,7 +738,7 @@ body {
 }
 .object-list-item.selected .object-list-settings {
   display: block;
-  margin: -4px 0 0 15px;
+  margin: 1px 0 0 15px;
 }
 .object-list-settings {
   display: none;

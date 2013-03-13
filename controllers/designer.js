@@ -201,8 +201,6 @@ module.exports = function (app, models) {
         var layers = [];
         var index = 0;
 
-        console.log(settings);
-
         var addLayer = function (layer) {
           layers.push(layer);
           var img = new Canvas.Image;

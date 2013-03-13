@@ -38,7 +38,7 @@ var PanelView = Backbone.View.extend({
     designer.panelWidth = 0;
     designer.panelHeight = 0;
     designer.scale = 1;
-    if((availableWidth/availableHeight) > (this.pageWidth/this.pageHeight)){
+    if((availableWidth/availableHeight) > (designer.width/designer.height)){
       designer.scale = availableHeight / designer.height;
       designer.panelHeight = availableHeight;
       designer.panelWidth = parseInt(availableHeight * designer.width / designer.height);

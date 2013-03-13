@@ -81,8 +81,8 @@ var TopBarView = Backbone.View.extend({
   },
 
   canvasWidthChangeHandler: function () {
-    console.log('width change');
     designer.width = parseInt(this.$el.find('.canvas-width').val());
+    this.canvasResize();
   },
 
   canvasHeightChange: function () {
@@ -92,6 +92,12 @@ var TopBarView = Backbone.View.extend({
 
   canvasHeightChangeHandler: function () {
     designer.height = parseInt(this.$el.find('.canvas-height').val());
+    this.canvasResize();
+  },
+
+  canvasResize: function () {
+    designer.panelView.resize();
+    designer.panelView.addAll();
   },
 
   saveAll: function (callback) {
@@ -154,8 +160,6 @@ var TopBarView = Backbone.View.extend({
       name: 'New Shape',
       type: 'shape',
       shape: 'rect',
-      x: 0,
-      y: 0,
       width: designer.width,
       height: designer.height,
       color: '#757270'
