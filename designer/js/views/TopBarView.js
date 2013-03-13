@@ -82,7 +82,7 @@ var TopBarView = Backbone.View.extend({
 
   canvasWidthChangeHandler: function () {
     designer.width = parseInt(this.$el.find('.canvas-width').val());
-    this.canvasResize();
+    designer.panelView.trigger('resize');
   },
 
   canvasHeightChange: function () {
@@ -92,15 +92,11 @@ var TopBarView = Backbone.View.extend({
 
   canvasHeightChangeHandler: function () {
     designer.height = parseInt(this.$el.find('.canvas-height').val());
-    this.canvasResize();
-  },
-
-  canvasResize: function () {
-    designer.panelView.resize();
-    designer.panelView.addAll();
+    designer.panelView.trigger('resize');
   },
 
   saveAll: function (callback) {
+    designer.objectList.unSelectAll();
     $.ajax({
       type: "POST",
       url: DESIGNER_URL + 'save',

@@ -19,12 +19,13 @@ var PanelView = Backbone.View.extend({
   },
 
   initialize: function(){
-    _.bindAll(this, 'mouseMove', 'addOne', 'addAll');
+    _.bindAll(this, 'mouseMove', 'addOne', 'addAll', 'sizeChangeHandler');
 
     this.resize();
 
     this.listenTo(designer.objectList, 'add', this.addOne);
     this.listenTo(designer.objectList, 'sort', this.addAll);
+    this.on('resize', this.sizeChangeHandler);
   },
 
   resize: function(){
@@ -55,6 +56,12 @@ var PanelView = Backbone.View.extend({
     });
     this.offset.pageX = this.$el.offset().left;
     this.offset.pageY = this.$el.offset().top;
+  },
+
+  sizeChangeHandler: function () {
+    designer.objectList.unSelectAll();
+    this.resize();
+    this.addAll();
   },
 
   addOne: function(PanelObject){

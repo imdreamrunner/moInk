@@ -18,15 +18,15 @@ var ObjectList = Backbone.Collection.extend({
 
   unSelectAll: function(){
     var unSelect = function(object){
-      object.set({_selected: false})
-    }
+      object.unset('_selected');
+    };
     _.each(this.selected(), unSelect);
   },
 
   unHoverAll: function(){
     var unHover = function(object){
-      object.set({_hover: false})
-    }
+      object.unset('_hover');
+    };
     _.each(this.hover(), unHover);
   },
 
