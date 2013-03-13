@@ -25,7 +25,9 @@
   <div class="row">
     <div class="span8">
       <% for (var index in collection){ %>
-        <p><a href="/designer/<%=collection[index]._id%>" target="_blank"><%=collection[index].title%></a></p>
+        <p><a href="/designer/<%=collection[index]._id%>" target="_blank"><%=collection[index].title%></a>
+         [<a href="javascript: delete_design('<%=collection[index]._id%>');">DELETE</a>]
+        </p>
       <% } %>
     </div>
   </div>

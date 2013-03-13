@@ -1,3 +1,6 @@
+
+var ObjectId = require('mongoose').Types.ObjectId;
+
 module.exports = function(app, models){
   /*
    * User sign up page
@@ -118,5 +121,21 @@ module.exports = function(app, models){
       err: 0,
       id: Design._id
     })
-  })
-}
+  });
+
+  app.post('/user/delete', function (req, res) {
+    console.log(req.body.id);
+    models.design.find({_id: new ObjectId(req.body.id)}).exec(function (err, designs) {
+      if (designs[0]) {
+        var design = designs[0];
+        design.content = req.body.content;
+        design.settings = req.body.settings;
+        design.remove(function () {
+          res.json({
+            err: 0
+          });
+        });
+      }
+    });
+  });
+};
