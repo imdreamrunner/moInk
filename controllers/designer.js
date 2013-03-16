@@ -224,13 +224,13 @@ module.exports = function (app, models) {
           index++;
           if (index === content.length) {
             //ends
-            output();
+            create_image();
           } else {
             panel.draw(Canvas, objectId, content[index], settings, addLayer);
           }
         };
 
-        var output = function () {
+        var create_image = function () {
           var dir = path.join(__dirname, '../designs/');
           var out = fs.createWriteStream(dir + objectId.toString() + '.png');
           var stream = canvas.pngStream();
@@ -241,6 +241,29 @@ module.exports = function (app, models) {
 
           stream.on('end', function(){
             console.log('design created');
+            create_thumbnail();
+          });
+        };
+
+
+        var create_thumbnail = function () {
+          var tWidth = 200;
+          var tHeight = parseInt(200 * height / width);
+          var tCanvas = new Canvas(tWidth, tHeight);
+          var tContext = tCanvas.getContext('2d');
+          var tImage = new Canvas.Image;
+          tImage.src = canvas.toDataURL();
+          tContext.drawImage(tImage, 0, 0, tWidth, tHeight);
+
+          var dir = path.join(__dirname, '../designs/');
+          var out = fs.createWriteStream(dir + objectId.toString() + '_small.png');
+          var stream = tCanvas.pngStream();
+
+          stream.on('data', function(chunk){
+            out.write(chunk);
+          });
+
+          stream.on('end', function(){
             res.json({
               err: 0,
               url: '/designs/' + objectId.toString() + '.png'

@@ -56,7 +56,7 @@ function load_image (id) {
 
 function load_list (id) {
   var $gallery = $('#gallery');
-  var $design_item = $('<img src="' + get_url(design_list[id].id) + '" class="list_item list_item_' + id + '" />');
+  var $design_item = $('<img src="/designs/' + design_list[id].id + '_small.png" class="list_item list_item_' + id + '" />');
   $design_item.on('click', function(){
     load_image(id);
   });
