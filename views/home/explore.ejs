@@ -11,19 +11,27 @@
 <% include ../public/header.ejs %>
 <div id="main" class="container">
   <div class="header-offset"></div>
-  <div class="row">
-    <div class="list-item">
-      <img src="/designs/513fef0c0bced09332000003.png" width="290" />
+  <div id="gallery">
+    <div class="frame">
+      <dic class="buttons">
+        <a class="to-left" href="#gallery">&lt;</a>
+        <a class="to-right" href="#gallery">&gt;</a>
+        <a class="view-design" href="javascript:">View Design</a>
+      </dic>
     </div>
-    <div class="list-item">
-      <img src="/designs/513fef0c0bced09332000003.png" width="290" />
+    <div class="info">
+      <a class="to-left" href="#gallery">&lt;</a>
+      <a class="to-right" href="#gallery">&gt;</a>
+      <div class="title">This is the title la.</div>
+      <div class="author">Last, First</div>
     </div>
-    <div class="list-item">
-      <img src="/designs/513fef0c0bced09332000003.png" width="290" />
+    <div class="list">
+      <div class="image-list"></div>
     </div>
   </div>
 </div>
 <% include ../public/footer.ejs %>
 <% include ../public/javascripts.ejs %>
+<script src="/javascripts/explore.js"></script>
 </body>
 </html>

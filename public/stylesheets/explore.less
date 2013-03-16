@@ -1,16 +1,137 @@
-.list-item {
-  float: left;
-  width: 290px;
+.transition-opacity{
+  transition:opacity 0.5s linear;
+  -webkit-transition:opacity 0.5s linear;
 }
 
-.list-item:nth-child(3n+1) {
-  margin-left: 40px;
+.transition-margin{
+  transition:margin 0.5s;
+  -webkit-transition:margin 0.5s;
 }
 
-.list-item:nth-child(3n+2) {
-  margin-left: 15px;
-}
+#gallery{
+  div.frame {
+    height: 520px;
+    margin: 0 20px;
+    .buttons {
+      position: absolute;
+      width: 260px;
+      height: 80px;
+      background: #000;
+      z-index: 100;
+      margin: 220px 0 0 320px;
+      border-radius: 8px;
+      opacity: 0;
+      .transition-opacity;
+      &:hover {
+        opacity: 0.6;
+      }
+      .to-left, .to-right, .view-design {
+        position: absolute;
+        display: block;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+        color: #FFF;
+        border: 1px solid #FFF;
+        border-radius: 4px;
+        &:hover {
+          text-decoration: none;
+          background: #555;
+        }
+      }
+      .view-design {
+        width: 120px;
+        margin: 20px 0 0 70px;
+      }
+      .to-left {
+        width: 40px;
+        margin: 20px 0 0 20px;
+      }
+      .to-right {
+        width: 40px;
+        margin: 20px 0 0 200px;
+      }
+    }
+  }
 
-.list-item:nth-child(3n+3) {
-  margin-left: 15px;
+  div.image-wrapper {
+    position: absolute;
+    width: 900px;
+    height: 520px;
+    background: #AAA;
+    text-align: center;
+    img {
+      height: 520px;
+    }
+    &.preload {
+      display: none;
+    }
+  }
+
+  div.info {
+    height: 40px;
+    div.title {
+      position: absolute;
+      width: 800px;
+      margin: 2px 0 0 70px;
+      text-align: center;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 12px;
+    }
+
+    div.author {
+      position: absolute;
+      width: 800px;
+      margin: 18px 0 0 70px;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+    }
+
+    a.to-left, a.to-right {
+      position: absolute;
+      display: block;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      background: #AAA;
+      color: #FFF;
+      border-radius: 15px;
+      font-size: 18px;
+      &:hover {
+        background: #CCC;
+        text-decoration: none;
+      }
+    }
+
+    a.to-left {
+      margin: 5px 0 0 20px;
+    }
+
+    a.to-right {
+      margin: 5px 0 0 890px;
+    }
+  }
+
+  div.list {
+    margin: 0 20px 20px 20px;
+    height: 70px;
+    overflow: hidden;
+    white-space: nowrap;
+    .image-list {
+      .transition-margin;
+    }
+    img {
+      display: inline-block;
+      margin-right: 2px;
+      height: 70px;
+      opacity: 0.4;
+      cursor: pointer;
+      .transition-opacity;
+      &:hover, &.current{
+        opacity: 1;
+      }
+    }
+  }
 }

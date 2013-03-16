@@ -1,13 +1,136 @@
-.list-item {
-  float: left;
-  width: 290px;
+.transition-opacity {
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
 }
-.list-item:nth-child(3n+1) {
-  margin-left: 40px;
+.transition-margin {
+  transition: margin 0.5s;
+  -webkit-transition: margin 0.5s;
 }
-.list-item:nth-child(3n+2) {
-  margin-left: 15px;
+#gallery div.frame {
+  height: 520px;
+  margin: 0 20px;
 }
-.list-item:nth-child(3n+3) {
-  margin-left: 15px;
+#gallery div.frame .buttons {
+  position: absolute;
+  width: 260px;
+  height: 80px;
+  background: #000;
+  z-index: 100;
+  margin: 220px 0 0 320px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+}
+#gallery div.frame .buttons:hover {
+  opacity: 0.6;
+}
+#gallery div.frame .buttons .to-left,
+#gallery div.frame .buttons .to-right,
+#gallery div.frame .buttons .view-design {
+  position: absolute;
+  display: block;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  color: #FFF;
+  border: 1px solid #FFF;
+  border-radius: 4px;
+}
+#gallery div.frame .buttons .to-left:hover,
+#gallery div.frame .buttons .to-right:hover,
+#gallery div.frame .buttons .view-design:hover {
+  text-decoration: none;
+  background: #555;
+}
+#gallery div.frame .buttons .view-design {
+  width: 120px;
+  margin: 20px 0 0 70px;
+}
+#gallery div.frame .buttons .to-left {
+  width: 40px;
+  margin: 20px 0 0 20px;
+}
+#gallery div.frame .buttons .to-right {
+  width: 40px;
+  margin: 20px 0 0 200px;
+}
+#gallery div.image-wrapper {
+  position: absolute;
+  width: 900px;
+  height: 520px;
+  background: #AAA;
+  text-align: center;
+}
+#gallery div.image-wrapper img {
+  height: 520px;
+}
+#gallery div.image-wrapper.preload {
+  display: none;
+}
+#gallery div.info {
+  height: 40px;
+}
+#gallery div.info div.title {
+  position: absolute;
+  width: 800px;
+  margin: 2px 0 0 70px;
+  text-align: center;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 12px;
+}
+#gallery div.info div.author {
+  position: absolute;
+  width: 800px;
+  margin: 18px 0 0 70px;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+}
+#gallery div.info a.to-left,
+#gallery div.info a.to-right {
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background: #AAA;
+  color: #FFF;
+  border-radius: 15px;
+  font-size: 18px;
+}
+#gallery div.info a.to-left:hover,
+#gallery div.info a.to-right:hover {
+  background: #CCC;
+  text-decoration: none;
+}
+#gallery div.info a.to-left {
+  margin: 5px 0 0 20px;
+}
+#gallery div.info a.to-right {
+  margin: 5px 0 0 890px;
+}
+#gallery div.list {
+  margin: 0 20px 20px 20px;
+  height: 70px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#gallery div.list .image-list {
+  transition: margin 0.5s;
+  -webkit-transition: margin 0.5s;
+}
+#gallery div.list img {
+  display: inline-block;
+  margin-right: 2px;
+  height: 70px;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+}
+#gallery div.list img:hover,
+#gallery div.list img.current {
+  opacity: 1;
 }
