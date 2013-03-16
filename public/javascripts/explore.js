@@ -1,24 +1,12 @@
-var design_list = [
-  '/designer/_devimg/design_a.jpg',
-  '/designer/_devimg/design_b.jpg',
-  '/designer/_devimg/design_c.jpg',
-  '/designer/_devimg/design_d.jpg',
-  '/designer/_devimg/design_e.jpg',
-  '/designer/_devimg/design_f.jpg',
-  '/designer/_devimg/design_g.jpg',
-  '/designer/_devimg/design_h.jpg',
-  '/designer/_devimg/design_i.jpg',
-  '/designer/_devimg/design_j.jpg',
-  '/designer/_devimg/design_k.jpg',
-  '/designer/_devimg/design_l.jpg',
-  '/designer/_devimg/design_m.jpg'
-];
-
 function get_offset_left (id) {
   var $gallery = $('#gallery');
   return $gallery.find('.list_item_' + id).offset().left
     + $gallery.find('.list_item_' + id).width() / 2
     - $gallery.find('.image-list').offset().left;
+}
+
+function get_url (design_id) {
+  return '/designs/' + design_id + '.png';
 }
 
 function get_total_width () {
@@ -46,10 +34,13 @@ function load_image (id) {
 
   $gallery.find('.image-list').css({'margin-left': left_margin});
 
+  $gallery.find('.title').html(design_list[id].title);
+  $gallery.find('.author').html(design_list[id].author);
+
   var preload_image = new Image();
   preload_image.onload = function () {
     $gallery.find('.image-wrapper.preload').remove();
-    $gallery.find('.frame').append('<div class="image-wrapper preload"><img src="' + design_list[id] + '" /></div>');
+    $gallery.find('.frame').append('<div class="image-wrapper preload"><img src="' + get_url(design_list[id].id) + '" /></div>');
     $gallery.find('.image-wrapper.preload').fadeIn(700);
     if (window.loading !== 1) {
       window.loading = 1;
@@ -60,12 +51,12 @@ function load_image (id) {
       }, 700);
     }
   };
-  preload_image.src = design_list[id];
+  preload_image.src = get_url(design_list[id].id);
 }
 
 function load_list (id) {
   var $gallery = $('#gallery');
-  var $design_item = $('<img src="' + design_list[id] + '" class="list_item list_item_' + id + '" />');
+  var $design_item = $('<img src="' + get_url(design_list[id].id) + '" class="list_item list_item_' + id + '" />');
   $design_item.on('click', function(){
     load_image(id);
   });
@@ -97,6 +88,9 @@ $(document).ready(function () {
   }
   $gallery.find('.to-left').on('click', next);
   $gallery.find('.to-right').on('click', previous);
+  $gallery.find('.view-design').on('click', function () {
+    window.open('/designer/' + design_list[window.current_design].id);
+  });
   $(document).on('keydown', function (e) {
     if (e.keyCode === 39) {
       previous();

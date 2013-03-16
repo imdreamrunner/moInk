@@ -10,6 +10,9 @@
   height: 520px;
   margin: 0 20px;
 }
+#gallery div.frame:hover .buttons {
+  opacity: 0.1;
+}
 #gallery div.frame .buttons {
   position: absolute;
   width: 260px;
