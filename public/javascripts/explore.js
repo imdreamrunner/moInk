@@ -1,4 +1,5 @@
 function get_offset_left (id) {
+  console.log(id);
   var $gallery = $('#gallery');
   return $gallery.find('.list_item_' + id).offset().left
     + $gallery.find('.list_item_' + id).width() / 2
@@ -19,7 +20,7 @@ function get_total_width () {
 }
 
 function load_image (id) {
-  window.current_design = id;
+  window.current_design = parseInt(id);
   var $gallery = $('#gallery');
 
   $gallery.find('.list_item').removeClass('current');
@@ -37,6 +38,9 @@ function load_image (id) {
   $gallery.find('.title').html(design_list[id].title);
   $gallery.find('.author').html(design_list[id].author);
 
+  $gallery.find('.buttons').hide();
+  $gallery.find('.loading').show();
+
   var preload_image = new Image();
   preload_image.onload = function () {
     $gallery.find('.image-wrapper.preload').remove();
@@ -44,10 +48,12 @@ function load_image (id) {
     $gallery.find('.image-wrapper.preload').fadeIn(700);
     if (window.loading !== 1) {
       window.loading = 1;
+      $gallery.find('.loading').fadeOut(700);
       setTimeout(function () {
         $gallery.find('.image-wrapper.loaded').remove();
         $gallery.find('.image-wrapper.preload').removeClass('preload').addClass('loaded');
         window.loading = 0;
+        $gallery.find('.buttons').show();
       }, 700);
     }
   };

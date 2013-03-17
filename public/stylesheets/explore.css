@@ -13,6 +13,19 @@
 #gallery div.frame:hover .buttons {
   opacity: 0.1;
 }
+#gallery div.frame .loading {
+  position: absolute;
+  width: 200px;
+  height: 40px;
+  background: #000;
+  z-index: 100;
+  margin: 230px 0 0 350px;
+  border-radius: 8px;
+  line-height: 40px;
+  text-align: center;
+  color: #FFF;
+  opacity: 0.5;
+}
 #gallery div.frame .buttons {
   position: absolute;
   width: 260px;
