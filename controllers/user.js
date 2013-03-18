@@ -43,7 +43,10 @@ module.exports = function(app, models){
    */
   app.get('/user/login', function(req, res){
     console.log(req.session.user);
-    res.render('user/login');
+    res.render('user/login', {
+      msg: req.query.msg || '',
+      redirect: req.query.redirect || '/'
+    });
   });
 
   /*
@@ -103,7 +106,7 @@ module.exports = function(app, models){
     if(userInfo){
       next();
     }else{
-      res.redirect('/user/login');
+      res.redirect('/user/login?msg=require-login&redirect=' + encodeURIComponent(req.url));
     }
   }
 

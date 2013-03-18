@@ -37,12 +37,19 @@
           </div>
         </div>
       </form>
+      <% if (msg === 'require-login') { %>
+      <div id="alert" class="alert">You have to login to continue.</div>
+      <% } else { %>
       <div id="alert" class="alert hidden"></div>
+      <% } %>
     </div>
   </div>
 </div>
 <% include ../public/javascripts.ejs %>
 <script src="/libraries/md5.js"></script>
+<script>
+  var redirect_url = '<%=redirect%>';
+</script>
 <script src="/javascripts/login.js"></script>
 </body>
 </html>
