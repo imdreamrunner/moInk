@@ -1,7 +1,6 @@
 var sha1 = require('sha1');
 var ObjectId = require('mongoose').Types.ObjectId;
 var email = require('../utilities/email.js');
-var check = require('validator').check;
 
 module.exports = function(app, models){
   /*
