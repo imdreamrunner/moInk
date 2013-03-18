@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>Settings - moInk</title>
+  <% include ../public/stylesheets.ejs %>
+  <link rel='stylesheet' href='/stylesheets/single-page.css'/>
+</head>
+<div id="single-page">
+  <div class="row">
+    <div class="span2">
+      <a class="logo" href="/">moInk</a>
+    </div>
+    <div class="span7">
+      <div class="pull-right">
+        Need help? <a href="/about#contact" target="_blank">Contact us!</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span8">
+      <form id="user-info" class="form-horizontal">
+        <input type="hidden" id="user-id" value="<%=userInfo._id%>" />
+        <legend>Change your settings</legend>
+        <div class="control-group">
+          <label class="control-label" for="email">Email</label>
+          <div class="controls">
+            <input type="email" id="email" placeholder="Email" readonly="true" value="<%=userInfo.email%>" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="firstname">First Name</label>
+          <div class="controls">
+            <input type="text" id="firstname" placeholder="First Name" value="<%=userInfo.name.first%>" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="lastname">Last Name</label>
+          <div class="controls">
+            <input type="text" id="lastname" placeholder="Last Name" value="<%=userInfo.name.last%>" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="password">New Password</label>
+          <div class="controls">
+            <input type="password" id="password" placeholder="Password" /> <br />
+            Leave it blank if you do not wish to change it.
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="password2">Confirm Password</label>
+          <div class="controls">
+            <input type="password" id="password2" placeholder="Confirm Password" />
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <input type="submit" id="save" class="btn" value="Save" /> or <a href="/">Discard all changes</a>
+          </div>
+        </div>
+      </form>
+      <div id="alert" class="alert hidden"></div>
+    </div>
+  </div>
+</div>
+<% include ../public/javascripts.ejs %>
+<script src="/libraries/md5.js"></script>
+<script src="/javascripts/settings.js"></script>
+</body>
+</html>

@@ -10,7 +10,8 @@ var submitForm = function () {
       if(res.err){
         $('#alert').html(res.msg || 'Unknown error.').addClass('alert-error');
       }else{
-        $('#alert').addClass('alert-success').html('You have logged in successfully!');
+        $('#alert').removeClass('alert-error').addClass('alert-success')
+          .html('You have logged in successfully!');
         window.location.href = redirect_url;
       }
     }

@@ -29,10 +29,11 @@ module.exports = function(mongoose){
       }
       if(users.length === 0){
         var User = new model(userInfo);
-        User.save();
-        callback({
-          err: 0,
-          userInfo: User
+        User.save(function () {
+          callback({
+            err: 0,
+            userInfo: User
+          });
         });
       }else{
         callback({
@@ -73,4 +74,4 @@ module.exports = function(mongoose){
   var model = mongoose.model('User', schema);
 
   return model;
-}
+};

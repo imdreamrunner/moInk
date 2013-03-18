@@ -1,4 +1,5 @@
 
+var sha1 = require('sha1');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function(app, models){
@@ -63,7 +64,7 @@ module.exports = function(app, models){
       if(result.err){
         res.json(result);
       }else{
-        var currentUser = result.userInfo
+        var currentUser = result.userInfo;
         delete currentUser.password; // There is no need to store user's password in session.
         delete currentUser.salt;
         req.session.user = currentUser;
@@ -90,11 +91,64 @@ module.exports = function(app, models){
   });
 
   /*
+   * User settings page
+   */
+  app.get('/user/settings', function(req, res){
+    res.render('user/settings', {
+      userInfo: req.session.user
+    });
+  });
+
+  /*
+   * User settings page
+   */
+  app.post('/user/settings', function(req, res){
+    models.user.find({_id: new ObjectId(req.body.id)}).exec(function (err, users) {
+      if (!users[0]) {
+        res.json({
+          err: 1,
+          msg: 'User not found.'
+        });
+        return;
+      }
+      var currentUser = users[0];
+      if (currentUser._id.toString() !== req.session.user._id.toString()) {
+        res.json({
+          err: 2,
+          msg: 'Permission denied.'
+        });
+        return;
+      }
+      if (req.body.password && req.body.password != '') {
+        currentUser.password = sha1(req.body.password + (currentUser.salt || ''));
+      }
+      currentUser.name.first = req.body.firstName;
+      currentUser.name.last = req.body.lastName;
+
+      currentUser.save(function () {
+        delete currentUser.password;
+        delete currentUser.salt;
+        req.session.user = currentUser;
+        res.json({
+          err: 0
+        });
+      });
+    });
+  });
+
+  /*
    * User logout
    */
   app.get('/user/logout', function(req, res){
     delete req.session.user;
     res.redirect('/');
+  });
+
+  /*
+   * User settings page
+   */
+  app.get('/user/forget-password', function(req, res){
+    res.render('user/forget-password');
   });
 
   /*
@@ -108,7 +162,7 @@ module.exports = function(app, models){
     }else{
       res.redirect('/user/login?msg=require-login&redirect=' + encodeURIComponent(req.url));
     }
-  }
+  };
 
   /*
    * User's collection
