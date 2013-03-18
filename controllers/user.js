@@ -1,6 +1,6 @@
-
 var sha1 = require('sha1');
 var ObjectId = require('mongoose').Types.ObjectId;
+var email = require('../utilities/email.js');
 
 module.exports = function(app, models){
   /*
@@ -149,6 +149,79 @@ module.exports = function(app, models){
    */
   app.get('/user/forget-password', function(req, res){
     res.render('user/forget-password');
+  });
+
+  /*
+   * User request reset password
+   */
+  app.post('/user/request-reset-password', function(req, res){
+    models.user.find({email: req.body.email}).exec(function (error,users) {
+      if (!users[0]) {
+        res.json({
+          err: 1,
+          msg: 'Email not found.'
+        });
+        return;
+      }
+      var user = users[0];
+      email.send({
+        text: 'Please visit the link below to reset your password: \n' +
+          '/user/reset-password?id=' + user._id + '&key=' + user.password,
+        to: user.name.first + ' ' + user.name.last + ' <' + user.email + '>',
+        subject: "Reset password in moink.me"
+      }, function () {
+        res.json({
+          err: 0,
+          msg: 'Email is sent.'
+        })
+      });
+    });
+  });
+
+  /*
+   * Reset password page
+   */
+  app.get('/user/reset-password', function(req, res){
+    res.render('user/reset-password', {
+      id: req.query.id,
+      key: req.query.key
+    });
+  });
+
+  /*
+   * Reset password
+   */
+  app.post('/user/reset-password', function(req, res){
+    if (!req.body.password || req.body.password == '') {
+      res.json({
+        err: 2,
+        msg: 'Password cannot bu null.'
+      });
+      return;
+    }
+    models.user.find({_id: new ObjectId(req.body.id)}).exec(function (err, users){
+      if (!users[0]) {
+        res.json({
+          err: 1,
+          msg: 'No record found.'
+        });
+        return;
+      }
+      var currentUser = users[0];
+      if (currentUser.password !== (req.body.key || '')) {
+        res.json({
+          err: 3,
+          msg: 'Permission denied.'
+        });
+        return;
+      }
+      currentUser.password = sha1(req.body.password + (currentUser.salt || ''));
+      currentUser.save(function () {
+        res.json({
+          err: 0
+        });
+      });
+    });
   });
 
   /*
