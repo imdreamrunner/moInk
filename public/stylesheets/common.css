@@ -114,6 +114,11 @@ footer .footer-logo:hover {
   width: 200px;
   height: 100px;
 }
+#user-box .loading {
+  line-height: 100px;
+  text-align: center;
+  color: #555;
+}
 .login-box {
   height: 80px;
   padding: 10px 50px;

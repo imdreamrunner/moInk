@@ -37,7 +37,7 @@ module.exports = function(mongoose){
       }else{
         callback({
           err: 1,
-          info: 'The email is already registered.'
+          msg: 'The email is already registered.'
         });
       }
     });
@@ -52,7 +52,7 @@ module.exports = function(mongoose){
         // no user found.
         callback({
           err: 1,
-          info: 'Email is not registered.'
+          msg: 'Email is not registered.'
         });
       }else{
         if(users[0].password == sha1(userInfo.password + (users[0].salt || ''))){
@@ -63,7 +63,7 @@ module.exports = function(mongoose){
         }else{
           callback({
             err: 2,
-            info: 'Password is incorrect.'
+            msg: 'Password is incorrect.'
           });
         }
       }

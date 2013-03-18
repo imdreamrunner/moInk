@@ -15,6 +15,17 @@ module.exports = function(app, models){
    * return: json
    */
   app.post('/user/signup', function(req, res){
+    if (!req.body.firstName || req.body.firstName == ''
+      || !req.body.lastName || req.body.lastName == ''
+      || !req.body.email || req.body.email == ''
+      || !req.body.password || req.body.password == '') {
+      res.json({
+        err: 1,
+        msg: 'All fields are required.'
+      });
+      return;
+    }
+
     var userInfo = {};
     userInfo.name = {};
     userInfo.name.first = req.body.firstName;
