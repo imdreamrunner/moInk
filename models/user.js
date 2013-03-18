@@ -14,6 +14,7 @@ module.exports = function(mongoose){
     email: String,
     password: String,
     salt: String,
+    verify_email: Boolean,
     reg_date: {
       type: Date,
       default: Date.now

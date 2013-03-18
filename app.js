@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var ObjectId = require('mongoose').Types.ObjectId;
+var expressValidator = require('express-validator');
 
 var MongoStore = require('connect-mongo')(express);
 
@@ -13,6 +14,7 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
+  app.use(expressValidator);
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session({

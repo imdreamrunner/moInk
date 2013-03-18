@@ -1,6 +1,7 @@
 var sha1 = require('sha1');
 var ObjectId = require('mongoose').Types.ObjectId;
 var email = require('../utilities/email.js');
+var check = require('validator').check;
 
 module.exports = function(app, models){
   /*
@@ -16,6 +17,14 @@ module.exports = function(app, models){
    * return: json
    */
   app.post('/user/signup', function(req, res){
+    req.assert('email', 'Invalid email').isEmail();
+    if (req.validationErrors()){
+      res.json({
+        err: 2,
+        msg: 'Invalid email'
+      });
+      return;
+    }
     if (!req.body.firstName || req.body.firstName == ''
       || !req.body.lastName || req.body.lastName == ''
       || !req.body.email || req.body.email == ''
