@@ -31,11 +31,30 @@ module.exports = function (app, models) {
   });
 
   app.post('/designer/save', function (req, res) {
-    models.design.find({_id: new ObjectId(req.body.id)}).exec(function (err, designs) {
-      if (designs[0]) {
-        var design = designs[0];
-        design.content = req.body.content;
-        design.settings = req.body.settings;
+    if (!req.session.user || !req.session.user._id) {
+      res.json({
+        err: 1,
+        msg: 'Login required.'
+      });
+      return;
+    }
+    models.design.checkPermission(req.body.id, req.session.user._id || '', function (err, design) {
+      if (err) {
+        res.json({
+          err: err,
+          msg: design
+        });
+      } else {
+        if (req.body.content) {
+          design.content = req.body.content;
+        }
+        if (req.body.settings) {
+          design.settings = req.body.settings;
+        }
+        if (req.body.title) {
+          design.title = req.body.title;
+        }
+
         design.save(function () {
           res.json({
             err: 0
@@ -47,97 +66,126 @@ module.exports = function (app, models) {
 
   /* Get Image from Third Party Websites */
   app.post('/designer/image/getFromURL', function (req, res) {
-    /*
-     * Download method from http://www.hacksparrow.com/using-node-js-to-download-files.html
-     */
+    if (!req.session.user || !req.session.user._id) {
+      res.json({
+        err: 1,
+        msg: 'Login required.'
+      });
+      return;
+    }
 
-    // App variables
-    var designId = req.body.id;
-    var fileURL = req.body.url;
-    var DOWNLOAD_DIR = path.join(__dirname, '../attachments/' + designId + '/');
+    models.design.checkPermission(req.body.id, req.session.user._id || '', function (err, design) {
+      if (err) {
+        res.json({
+          err: err,
+          msg: design
+        });
+      } else {
+        /*
+         * Download method from http://www.hacksparrow.com/using-node-js-to-download-files.html
+         */
 
-    // Create attachments directory.
-    var exec = require('child_process').exec;
-    var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
-    var child = exec(mkdir, function(err, stdout, stderr) {
-      if (err) throw err;
-    });
+        var designId = req.body.id;
+        var fileURL = req.body.url;
+        var DOWNLOAD_DIR = path.join(__dirname, '../attachments/' + designId + '/');
 
-    //download_file_httpget(file_url);
+        // Check permission
 
-    fileInfo = {
-      designId: designId,
-      url: fileURL
-    };
+        // Create attachments directory, then start download.
+        require('child_process').exec('mkdir -p ' + DOWNLOAD_DIR, function(err, stdout, stderr) {
+          if (err) throw err;
 
-    models.design.addAttachment(fileInfo, function (err, attachment) {
-      var attachmentId = attachment._id;
-      var urlParse = url.parse(fileURL);
-      var options = {
-        host: urlParse.host.split(":")[0],
-        port: urlParse.host.split(":")[1] || 80,
-        path: urlParse.pathname
-      };
+          fileInfo = {
+            designId: designId,
+            url: fileURL
+          };
 
-      var file_name = attachmentId + '.' + urlParse.pathname.split('.').pop();
-      var file = fs.createWriteStream(DOWNLOAD_DIR + file_name);
+          models.design.addAttachment(fileInfo, function (err, attachment) {
+            var attachmentId = attachment._id;
+            var urlParse = url.parse(fileURL);
+            var options = {
+              host: urlParse.host.split(":")[0],
+              port: urlParse.host.split(":")[1] || 80,
+              path: urlParse.pathname
+            };
 
-      http.get(options, function (response) {
-        response.on('data',function (data) {
-          file.write(data);
-          console.log('write data');
-        }).on('end', function () {
-            file.end();
-            console.log(DOWNLOAD_DIR + file_name);
-            res.json({
-              err: 0,
-              attachment: attachment
+            var file_name = attachmentId + '.' + urlParse.pathname.split('.').pop();
+            var file = fs.createWriteStream(DOWNLOAD_DIR + file_name);
+
+            http.get(options, function (response) {
+              response.on('data',function (data) {
+                file.write(data);
+                console.log('write data');
+              }).on('end', function () {
+                  file.end();
+                  console.log(DOWNLOAD_DIR + file_name);
+                  res.json({
+                    err: 0,
+                    attachment: attachment
+                  });
+                });
             });
           });
-      });
+        });
+      }
     });
   });
 
   /* Upload image from user's computer. */
   app.post('/designer/image/upload', function (req, res) {
-    /*
-     * modified from http://markdawson.tumblr.com/post/18359176420/asynchronous-file-uploading-using-express-and-node-js
-     */
-
-    // App variables
-    var designId = req.body.id;
-    var UPLOAD_DIR = path.join(__dirname, '../attachments/' +  designId + '/');
-    var fileURL = req.files.userPhoto.name;
-
-    // Create attachments directory.
-    var exec = require('child_process').exec;
-    var mkdir = 'mkdir -p ' + UPLOAD_DIR;
-    var child = exec(mkdir, function(err, stdout, stderr) {
-      if (err) throw err;
-    });
-
-    fileInfo = {
-      designId: designId,
-      url: 'file://' + fileURL
-    };
-
-    models.design.addAttachment(fileInfo, function (err, attachment) {
-      var attachmentId = attachment._id;
-      var fileName = attachmentId + '.' + req.files.userPhoto.name.split('.').pop();
-      fs.rename(req.files.userPhoto.path, UPLOAD_DIR + fileName, function (fsErr) {
-        if (fsErr) {
-          res.json({
-            err: 1,
-            info: 'Ah crap! Something bad happened'
-          });
-        } else {
-          res.json({
-            err: 0,
-            attachment: attachment
-          });
-        }
+    if (!req.session.user || !req.session.user._id) {
+      res.json({
+        err: 1,
+        msg: 'Login required.'
       });
+      return;
+    }
+
+    models.design.checkPermission(req.body.id, req.session.user._id || '', function (err, design) {
+      if (err) {
+        res.json({
+          err: err,
+          msg: design
+        });
+      } else {
+        /*
+         * Modified from http://markdawson.tumblr.com/post/18359176420/asynchronous-file-uploading-using-express-and-node-js
+         */
+
+        var designId = req.body.id;
+        var UPLOAD_DIR = path.join(__dirname, '../attachments/' +  designId + '/');
+        var fileURL = req.files.userPhoto.name;
+
+        // Create attachments directory.
+        require('child_process').exec('mkdir -p ' + UPLOAD_DIR, function(err, stdout, stderr) {
+          if (err) throw err;
+
+          fileInfo = {
+            designId: designId,
+            url: 'file://' + fileURL
+          };
+
+          models.design.addAttachment(fileInfo, function (err, attachment) {
+            var attachmentId = attachment._id;
+            var fileName = attachmentId + '.' + req.files.userPhoto.name.split('.').pop();
+            fs.rename(req.files.userPhoto.path, UPLOAD_DIR + fileName, function (fsErr) {
+              if (fsErr) {
+                res.json({
+                  err: 1,
+                  msg: 'Ah crap! Something bad happened'
+                });
+              } else {
+                res.json({
+                  err: 0,
+                  attachment: attachment
+                });
+              }
+            });
+          });
+        });
+      }
     });
+
   });
 
   /* Return an image of rendered text  */
@@ -167,7 +215,7 @@ module.exports = function (app, models) {
     context.fillStyle = color;
     context.textBaseline = 'top';
 
-    for (var line in lines) {
+    for (line in lines) {
       context.fillText(lines[line], 0, fontSize * line * 1.2);
     }
 

@@ -8,7 +8,7 @@ var ObjectListItemView = Backbone.View.extend({
     'mouseenter': 'mouseEnter',
     'click .object-list-delete': 'delete',
     'click .object-list-hide': 'hide',
-    'dblclick .object-list-name': 'rename'
+    'click .object-list-name': 'rename'
   },
 
   initialize: function(){

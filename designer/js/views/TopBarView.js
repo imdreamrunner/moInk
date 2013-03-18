@@ -46,6 +46,7 @@ var TopBarView = Backbone.View.extend({
   wizardBar: function () {
     var _this = this;
 
+    this.titleChange();
     this.canvasWidthChange();
     this.canvasHeightChange();
 
@@ -68,11 +69,25 @@ var TopBarView = Backbone.View.extend({
     this.$el.find('.save').on('click', function () {
       var postSuccess = function (res) {
         console.log(res);
+        if (res.err) {
+          alert(res.msg);
+        } else {
+          alert('success!');
+        }
       };
 
       _this.saveAll(postSuccess);
 
     });
+  },
+
+  titleChange: function () {
+    _.bindAll(this, 'titleChangeHandler');
+    this.$el.find('.title').val(designer.design.title).on('change', this.titleChangeHandler);
+  },
+
+  titleChangeHandler: function () {
+    designer.design.title = this.$el.find('.title').val();
   },
 
   canvasWidthChange: function () {
@@ -102,6 +117,7 @@ var TopBarView = Backbone.View.extend({
       url: DESIGNER_URL + 'save',
       data: {
         id: designId,
+        title: designer.design.title,
         content: JSON.stringify(designer.objectList.toJSON()),
         settings: JSON.stringify({
           width: designer.width,
@@ -210,6 +226,10 @@ var TopBarView = Backbone.View.extend({
     });
 
     var inseartImage = function (res) {
+      if (res.err) {
+        alert(res.msg);
+        return false;
+      }
       var attachment = res.attachment;
       console.log(attachment);
       var newImage = new PanelObject({
@@ -219,7 +239,6 @@ var TopBarView = Backbone.View.extend({
       });
       _this.addObject(newImage);
       imageBox.close();
-
     };
 
     imageBox.$el.find('.insert-image').click(function () {

@@ -12,7 +12,7 @@ function loading_status (message) {
 
 function loaded () {
   loading_status("starting designer...");
-  $('#loader').delay(2000).fadeOut(1000);
+  $('#loader').delay(500).fadeOut(1000);
   setTimeout(function () {
     $('#loader').remove();
   }, 4000);

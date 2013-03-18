@@ -3,18 +3,18 @@
 @import "spectrum";
 @import "moBox";
 
-body{
+body {
   background: url('../images/noisy_grid.png');
   font-family: 'Nunito';
 }
 
-#designer{
+#designer {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-#panel{
+#panel {
   position: absolute;
   background: #FFF;
   box-shadow: 0 0 6px #656260;
@@ -44,10 +44,10 @@ body{
   color: #555250;
   text-decoration: none;
   padding: 0 20px;
-  &:hover{
+  &:hover {
     background: url('../images/top-menu-light.png');
   }
-  &.selected{
+  &.selected {
     background: url('../images/top-menu-light.png');
     border-left: 1px solid #858280;
     border-right: 1px solid #858280;
@@ -87,7 +87,7 @@ body{
   overflow: hidden;
 }
 
-.object-list-item .object-list-icon{
+.object-list-item .object-list-icon {
   position: absolute;
   margin: 7px;
   height: 16px;
@@ -95,11 +95,11 @@ body{
   cursor: move;
 }
 
-.object-list-item.image .object-list-icon{
+.object-list-item.image .object-list-icon {
   background: url('../images/decoration_16.png') center no-repeat;
 }
 
-.object-list-name{
+.object-list-name {
   font-size: 16px;
   font-family: 'Nunito light';
   color: #555250;
@@ -107,8 +107,15 @@ body{
   height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 5px 0 0 30px;
+  margin: 5px 5px 0 25px;
+  padding: 0 0 0 5px;
   cursor: default;
+  .selected &:hover {
+    border-radius: 10px;
+    cursor: text;
+    background: #A5A2A0;
+    color: #F5F2F0;
+  }
 }
 
 .object-list-item:hover, .object-list-item.hover {
@@ -120,11 +127,11 @@ body{
   background: url('../images/object-list-selected.png');
 }
 
-.object-list-item.dragging{
+.object-list-item.dragging {
   background: url('../images/object-list-selected.png');
 }
 
-.object-list-item.selected .object-list-settings{
+.object-list-item.selected .object-list-settings {
   display: block;
   margin: 1px 0 0 15px;
 }
@@ -147,7 +154,7 @@ body{
   width: 30px;
 }
 
-.edit-item-name{
+.edit-item-name {
   font-size: 16px;
   font-family: 'Nunito light';
   color: #555250;
@@ -156,13 +163,13 @@ body{
   cursor: text;
   border: none;
   position: absolute;
-  margin: -21px 0 0 30px;
-  padding: 0;
-  width: 100px;
+  margin: -20px 0 0 25px;
+  border-radius: 10px;
+  padding: 0 0 0 5px;
+  width: 105px;
   outline: none;
   display: none;
 }
-
 
 @import "top-bar";
 @import "top-bar.edit.less";
