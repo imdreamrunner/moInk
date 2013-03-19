@@ -26,3 +26,8 @@ body {
 #single-page .logo:hover {
   opacity: 1;
 }
+p.notification {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="utf-8">
   <title>Settings - moInk</title>
@@ -26,6 +26,7 @@
           <label class="control-label" for="email">Email</label>
           <div class="controls">
             <input type="email" id="email" placeholder="Email" readonly="true" value="<%=userInfo.email%>" />
+            <p class="notification">This email has not been verified.</p>
           </div>
         </div>
         <div class="control-group">
@@ -40,11 +41,12 @@
             <input type="text" id="lastname" placeholder="Last Name" value="<%=userInfo.name.last%>" />
           </div>
         </div>
+        <hr />
         <div class="control-group">
           <label class="control-label" for="password">New Password</label>
           <div class="controls">
-            <input type="password" id="password" placeholder="Password" /> <br />
-            Leave it blank if you do not wish to change it.
+            <input type="password" id="password" placeholder="Password" />
+            <p class="notification">Leave it blank if you do not wish to change it.</p>
           </div>
         </div>
         <div class="control-group">
@@ -53,6 +55,7 @@
             <input type="password" id="password2" placeholder="Confirm Password" />
           </div>
         </div>
+        <hr />
         <div class="control-group">
           <div class="controls">
             <input type="submit" id="save" class="btn" value="Save" /> or <a href="/">Discard all changes</a>
