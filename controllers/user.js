@@ -174,7 +174,7 @@ module.exports = function(app, models){
       var user = users[0];
       email.send({
         text: 'Please visit the link below to reset your password: \n' +
-          '/user/reset-password?id=' + user._id + '&key=' + user.password,
+          'http://moink.me/user/reset-password?id=' + user._id + '&key=' + sha1('reset-' + user.password),
         to: user.name.first + ' ' + user.name.last + ' <' + user.email + '>',
         subject: "Reset password in moink.me"
       }, function () {
@@ -216,7 +216,7 @@ module.exports = function(app, models){
         return;
       }
       var currentUser = users[0];
-      if (currentUser.password !== (req.body.key || '')) {
+      if (sha1('reset-' + currentUser.password) !== (req.body.key || '')) {
         res.json({
           err: 3,
           msg: 'Permission denied.'
