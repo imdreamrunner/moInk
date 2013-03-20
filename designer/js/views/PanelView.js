@@ -26,6 +26,7 @@ var PanelView = Backbone.View.extend({
     this.listenTo(designer.objectList, 'add', this.addOne);
     this.listenTo(designer.objectList, 'sort', this.addAll);
     this.on('resize', this.sizeChangeHandler);
+    $(window).on('resize', this.sizeChangeHandler);
   },
 
   resize: function(){

@@ -10,10 +10,9 @@ var TopBarView = Backbone.View.extend({
   },
 
   initialize: function () {
-    this.pageWidth = document.documentElement.clientWidth;
-    this.$el.css({
-      width: parseInt(this.pageWidth - this.offset.right)
-    });
+    _.bindAll(this, 'resize');
+    this.resize();
+    $(window).on('resize', this.resize);
     if (this.model) {
       console.log(this.model);
       var type = this.model.get('type');
@@ -39,6 +38,13 @@ var TopBarView = Backbone.View.extend({
         this.wizardBar();
       }
     }
+  },
+
+  resize: function () {
+    this.pageWidth = document.documentElement.clientWidth;
+    this.$el.css({
+      width: parseInt(this.pageWidth - this.offset.right)
+    });
   },
 
   /* for default bar */
