@@ -9,7 +9,7 @@ var AppView = Backbone.View.extend({
 
   initialize: function () {
     loading_status("loading design...");
-
+    var _this = this;
     var loadContent = function (res) {
       designer.design = res.design;
 
@@ -34,6 +34,7 @@ var AppView = Backbone.View.extend({
         });
       }
       loaded();
+      _this.initializeSaving();
     };
     $.ajax({
       type: "POST",
@@ -83,5 +84,40 @@ var AppView = Backbone.View.extend({
     if (e.target.id === 'designer') {
       designer.objectList.unSelectAll();
     }
+  },
+
+  initializeSaving: function () {
+    var _this = this;
+    this.$el.find('#top-menu-save').on('click', function () {
+      var postSuccess = function (res) {
+        console.log(res);
+        if (res.err) {
+          alert(res.msg);
+        } else {
+          alert('success!');
+        }
+      };
+
+      _this.saveAll(postSuccess);
+
+    });
+  },
+
+  saveAll: function (callback) {
+    designer.objectList.unSelectAll();
+    $.ajax({
+      type: "POST",
+      url: DESIGNER_URL + 'save',
+      data: {
+        id: designId,
+        title: designer.design.title,
+        content: JSON.stringify(designer.objectList.toJSON()),
+        settings: JSON.stringify({
+          width: designer.width,
+          height: designer.height
+        })
+      },
+      success: callback
+    });
   }
 });

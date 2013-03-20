@@ -54,6 +54,9 @@ var TopMenuView = Backbone.View.extend({
       case 'top-menu-edit':
         this.changeTab(4);
         break;
+      case 'top-menu-finish':
+        this.changeTab(5);
+        break;
     }
   },
 
@@ -74,6 +77,9 @@ var TopMenuView = Backbone.View.extend({
         break;
       case(4):
         this.tab = 'edit';
+        break;
+      case(5):
+        this.tab = 'finish';
         break;
     }
     this.stopListening();

@@ -14,7 +14,6 @@ var TopBarView = Backbone.View.extend({
     this.resize();
     $(window).on('resize', this.resize);
     if (this.model) {
-      console.log(this.model);
       var type = this.model.get('type');
       var modelTemplate = _.template($('#top-menu-edit-' + type + '-template').html());
       this.$el.html(modelTemplate(this.model.toJSON()));
@@ -36,6 +35,8 @@ var TopBarView = Backbone.View.extend({
         this.imageBar();
       } else if (this.options.bar === 'wizard') {
         this.wizardBar();
+      } else if (this.options.bar === 'finish') {
+        this.finishBar();
       }
     }
   },
@@ -50,12 +51,16 @@ var TopBarView = Backbone.View.extend({
   /* for default bar */
 
   wizardBar: function () {
-    var _this = this;
 
     this.titleChange();
     this.canvasWidthChange();
     this.canvasHeightChange();
 
+
+  },
+
+  finishBar: function () {
+    var _this = this;
     this.$el.find('.download').click(function () {
       $.ajax({
         type: "POST",
@@ -70,20 +75,6 @@ var TopBarView = Backbone.View.extend({
           /* File cannot be access immediately after created, need to find a better way to solve this problem. */
         }
       });
-    });
-
-    this.$el.find('.save').on('click', function () {
-      var postSuccess = function (res) {
-        console.log(res);
-        if (res.err) {
-          alert(res.msg);
-        } else {
-          alert('success!');
-        }
-      };
-
-      _this.saveAll(postSuccess);
-
     });
   },
 
@@ -114,24 +105,6 @@ var TopBarView = Backbone.View.extend({
   canvasHeightChangeHandler: function () {
     designer.height = parseInt(this.$el.find('.canvas-height').val());
     designer.panelView.trigger('resize');
-  },
-
-  saveAll: function (callback) {
-    designer.objectList.unSelectAll();
-    $.ajax({
-      type: "POST",
-      url: DESIGNER_URL + 'save',
-      data: {
-        id: designId,
-        title: designer.design.title,
-        content: JSON.stringify(designer.objectList.toJSON()),
-        settings: JSON.stringify({
-          width: designer.width,
-          height: designer.height
-        })
-      },
-      success: callback
-    });
   },
 
   textBar: function () {

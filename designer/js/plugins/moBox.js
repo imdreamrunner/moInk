@@ -22,13 +22,11 @@ moBox.prototype = {
 
   show: function(){
     this.bg = $('<div id="moBoxBg"></div>');
-    this.bgTop = $('<div id="moBoxBgTop"></div>');
     $('body').prepend(this.bg).prepend(this.bgTop).prepend(this.$el);
   },
 
   close: function(){
     this.$el.remove();
     this.bg.remove();
-    this.bgTop.remove();
   }
 }

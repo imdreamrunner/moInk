@@ -4,7 +4,7 @@
 @import "moBox";
 
 body {
-  background: url('../images/noisy_grid.png');
+  background: url('../images/paper_fibers.png');
   font-family: 'Nunito';
 }
 
@@ -16,8 +16,8 @@ body {
 
 #panel {
   position: absolute;
-  background: #FFF;
-  box-shadow: 0 0 6px #656260;
+  background: url('../images/noisy_grid.png');
+  box-shadow: 0 0 6px #AAA;
 }
 
 #top-menu {
@@ -25,9 +25,7 @@ body {
   width: 100%;
   height: 30px;
   background: url('../images/top-menu.png');
-  box-shadow: 0 0 6px #656260;
   font-size: 14px;
-  border-bottom: 1px solid #858280;
   z-index: 10001;
 }
 
@@ -57,6 +55,7 @@ body {
 
 #top-menu-object-list {
   width: 101px;
+  text-align: center;
 }
 
 #object-list {
@@ -64,13 +63,13 @@ body {
   width: 140px;
   height: 100%;
   right: 0;
-  background: url('../images/dust.png');
-  border-left: 1px solid #c5c2c0;
-  box-shadow: 0 0 6px #a5a2a0;
+  background: url('../images/dust_bright.png');
+  border-left: 1px solid #DDD;
+  box-shadow: 0 0 6px #CCC;
 }
 
 #ul-object-list {
-  padding-top: 31px;
+  padding-top: 30px;
 }
 
 #ul-object-list li {
@@ -81,10 +80,11 @@ body {
 .object-list-item {
   width: 100%;
   height: 30px;
-  border: 1px solid #C5C2C0;
+  border: 1px solid #DDD;
   border-left: none;
   border-right: none;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .object-list-item .object-list-icon {
