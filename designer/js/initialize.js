@@ -79,8 +79,8 @@ var loadWebFont = function () {
   loading_status('loading fonts...');
   $.loadScript(DESIGNER_URL + 'js/libs/webfont.js', function () {
     WebFont.load({
-      custom: { families: ['Nunito', 'Nunito Light', 'Lustria'],
-        urls: ['fonts/Nunito.css', 'fonts/NunitoLight.css', 'fonts/Lustria.css']
+      custom: { families: ['Nunito', 'Nunito Light'],
+        urls: ['fonts/Nunito.css', 'fonts/NunitoLight.css']
       },
       loading: function () {
         console.log("Loading fonts...");
