@@ -6,14 +6,14 @@ var designer = {};
 
 var DESIGNER_URL = '/designer/';
 
-function loading_status (message) {
+function loading_status(message) {
   $('#loader').find('.status').html(message);
 }
 
-function loaded () {
+function loaded() {
   loading_status("starting designer...");
   $('#loader').delay(500).fadeOut(1000);
-  setTimeout(function () {
+  setTimeout(function() {
     $('#loader').remove();
   }, 4000);
 }
@@ -50,20 +50,20 @@ var ModuleList = [
   'views/TopMenuView'
 ];
 
-var initialize = function () {
+var initialize = function() {
   loading_status('loading panel core...');
   $.ajax('templates/main.html', {
-    success: function (content) {
+    success: function(content) {
       $('body').prepend(content);
       loadTemplates(templateList);
     }
   });
 };
 
-var loadTemplates = function (templates) {
+var loadTemplates = function(templates) {
   loading_status('loading panel templates...');
   $.ajax('templates/' + templates[0] + '.html', {
-    success: function (content) {
+    success: function(content) {
       $('body').append(content);
       templates.shift();
       if (templates.length) {
@@ -75,30 +75,30 @@ var loadTemplates = function (templates) {
   });
 };
 
-var loadWebFont = function () {
+var loadWebFont = function() {
   loading_status('loading fonts...');
-  $.loadScript(DESIGNER_URL + 'js/libs/webfont.js', function () {
+  $.loadScript(DESIGNER_URL + 'js/libs/webfont.js', function() {
     WebFont.load({
       custom: { families: ['Nunito', 'Nunito Light'],
         urls: ['fonts/Nunito.css', 'fonts/NunitoLight.css']
       },
-      loading: function () {
+      loading: function() {
         console.log("Loading fonts...");
       },
-      active: function () {
+      active: function() {
         console.log('Fonts are loaded.');
         loadModule(ModuleList, startApp);
       },
-      inactive: function () {
+      inactive: function() {
         console.log("Failed to load fonts.");
       }
     });
   });
 };
 
-var loadModule = function (modules, callback) {
+var loadModule = function(modules, callback) {
   loading_status('loading module ' + modules[0] + '...');
-  $.loadScript(DESIGNER_URL + 'js/' + modules[0] + '.js', function (res) {
+  $.loadScript(DESIGNER_URL + 'js/' + modules[0] + '.js', function(res) {
     modules.shift();
     if (modules.length > 0) {
       loadModule(modules, callback);
@@ -108,7 +108,7 @@ var loadModule = function (modules, callback) {
   });
 };
 
-var startApp = function () {
+var startApp = function() {
   loading_status('designer is loaded...');
   designer.appView = new AppView();
 };

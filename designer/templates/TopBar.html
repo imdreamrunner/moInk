@@ -7,9 +7,13 @@
       <div class="top-bar-block">
         <div class="top-control">
           <label class="medium">Name:</label>
-
           <div class="control">
-            <input class="title" size="8"/>
+            <input class="title" size="8" type="text" />
+          </div>
+        </div>
+        <div class="top-control">
+          <div class="control">
+            <input type="checkbox" name="public" checked="checked" /> Open to the public
           </div>
         </div>
       </div>
@@ -23,14 +27,14 @@
           <label class="medium">Width:</label>
 
           <div class="control">
-            <input class="canvas-width" size="4"/>
+            <input class="canvas-width" size="4" type="text" />
           </div>
         </div>
         <div class="top-control">
           <label class="medium">Height:</label>
 
           <div class="control">
-            <input class="canvas-height" size="4"/>
+            <input class="canvas-height" size="4" type="text" />
           </div>
         </div>
       </div>
@@ -40,24 +44,8 @@
         Templates
       </div>
       <div class="top-bar-block">
-        <div class="top-bar-template-list">
-          <div class="top-bar-template-item">
-            <div class="top-bar-template-pic"><img src="_devimg/design_a.jpg"></div>
-            <div class="top-bar-template-title">landscape</div>
-          </div>
-          <div class="top-bar-template-item">
-            <div class="top-bar-template-pic"><img src="_devimg/design_b.jpg" width="40"></div>
-            <div class="top-bar-template-title">portrait</div>
-          </div>
-          <div class="top-bar-template-item">
-            <div class="top-bar-template-pic"><img src="_devimg/design_c.jpg"></div>
-            <div class="top-bar-template-title">Design C</div>
-          </div>
-          <div class="top-bar-template-item">
-            <div class="top-bar-template-pic"><img src="_devimg/design_d.jpg"></div>
-            <div class="top-bar-template-title">Design D</div>
-          </div>
-        </div>
+        <a href="javascript:" class="top-button landscape"><span>landscape</span></a>
+        <a href="javascript:" class="top-button portrait"><span>portrait</span></a>
       </div>
     </li>
   </ul>
@@ -110,14 +98,14 @@
           <label class="small">Left:</label>
 
           <div class="control">
-            <input class="x" size="4"/>
+            <input class="x" size="4" type="text" />
           </div>
         </div>
         <div class="top-control">
           <label class="small">Top:</label>
 
           <div class="control">
-            <input class="y" size="4"/>
+            <input class="y" size="4" type="text" />
           </div>
         </div>
       </div>
@@ -131,14 +119,14 @@
           <label class="medium">Width:</label>
 
           <div class="control">
-            <input class="width" size="4"/>
+            <input class="width" size="4" type="text" />
           </div>
         </div>
         <div class="top-control">
           <label class="medium">Height:</label>
 
           <div class="control">
-            <input class="height" size="4"/>
+            <input class="height" size="4" type="text" />
           </div>
         </div>
       </div>
@@ -160,7 +148,7 @@
           <label class="middle">Degree:</label>
 
           <div class="control">
-            <input class="rotate" size="4"/>
+            <input class="rotate" size="4" type="text" />
           </div>
         </div>
       </div>
@@ -178,14 +166,14 @@
           <label class="small">Left:</label>
 
           <div class="control">
-            <input class="x" size="4"/>
+            <input class="x" size="4" type="text" />
           </div>
         </div>
         <div class="top-control">
           <label class="small">Top:</label>
 
           <div class="control">
-            <input class="y" size="4"/>
+            <input class="y" size="4" type="text" />
           </div>
         </div>
       </div>
@@ -199,7 +187,7 @@
           <label>Font Family:</label>
 
           <div class="control">
-            <input class="fontFamily" size="12"/>
+            <input class="fontFamily" size="12" type="text" />
           </div>
         </div>
         <div class="row">
@@ -207,14 +195,14 @@
             <label>Size:</label>
 
             <div class="control">
-              <input class="fontSize" size="2"/>
+              <input class="fontSize" size="2" type="text" />
             </div>
           </div>
           <div class="top-control">
             <label>Color:</label>
 
             <div class="control">
-              <input class="color" size="7"/>
+              <input class="color" size="7" type="text" />
             </div>
           </div>
         </div>
@@ -232,6 +220,77 @@
     </li>
   </ul>
 </script>
+
+<script type="text/template" id="top-menu-edit-shape-template">
+  <ul class="ul-top-bar">
+    <li>
+      <div class="top-bar-title">
+        Position
+      </div>
+      <div class="top-bar-block">
+        <div class="top-control">
+          <label class="small">Left:</label>
+
+          <div class="control">
+            <input class="x" size="4" type="text" />
+          </div>
+        </div>
+        <div class="top-control">
+          <label class="small">Top:</label>
+
+          <div class="control">
+            <input class="y" size="4" type="text" />
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="top-bar-title">
+        Size
+      </div>
+      <div class="top-bar-block">
+        <div class="top-control">
+          <label class="medium">Width:</label>
+
+          <div class="control">
+            <input class="width" size="4" type="text" />
+          </div>
+        </div>
+        <div class="top-control">
+          <label class="medium">Height:</label>
+
+          <div class="control">
+            <input class="height" size="4" type="text" />
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="top-bar-title">
+        Basic Settings
+      </div>
+      <div class="top-bar-block">
+        <div class="top-control">
+          <label>Shape:</label>
+
+          <div class="control">
+            <select class="shape">
+              <option value="rect">Rectangle</option>
+            </select>
+          </div>
+        </div>
+        <div class="top-control">
+          <label>Color:</label>
+
+          <div class="control">
+            <input class="color" size="7" type="text" />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</script>
+
 <script type="text/template" id="top-menu-finish-template">
   <ul class="ul-top-bar">
     <li>

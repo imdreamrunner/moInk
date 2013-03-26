@@ -70,22 +70,60 @@
   height: 20px;
 }
 
-.top-control .control input{
-  margin: 0;
-  height: 18px;
-  padding: 0 10px;
-  border: 1px solid #C5C2C0;
-  border-radius: 9px;
-}
-.top-control .control input:hover,
-.top-control .control input:focus{
-  border: 1px solid #959290;
+.control {
+  input[type='text'] {
+    margin: 0;
+    height: 18px;
+    padding: 0 10px;
+    border: 1px solid #CCC;
+    border-radius: 9px;
+    &:hover, &:focus {
+      border: 1px solid #999;
+
+    }
+  }
+
+  input[type='checkbox'] {
+
+  }
+
+  select{
+    margin-top: 5px;
+    margin: 0;
+    height: 18px;
+    padding: 0;
+    border: 1px solid #C5C2C0;
+  }
 }
 
-.top-control .control select{
-  margin-top: 5px;
-  margin: 0;
-  height: 18px;
-  padding: 0;
-  border: 1px solid #C5C2C0;
+.top-button {
+  display: block;
+  float: left;
+  height: 44px;
+  width: 44px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  text-indent: -9999px;
+  background: url(../images/top-button-bg.png);
+  border: 1px solid #CCC;
+
+  &:hover{
+    background: #FFF;
+    border: 1px solid #999;
+  }
+
+  span {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+  }
+
+  &.portrait span {
+     background: url(../images/top-button-portrait.png);
+   }
+
+  &.landscape span{
+    background: url(../images/top-button-landscape.png);
+  }
 }

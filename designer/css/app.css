@@ -843,23 +843,50 @@ body {
   display: inline-block;
   height: 20px;
 }
-.top-control .control input {
+.control input[type='text'] {
   margin: 0;
   height: 18px;
   padding: 0 10px;
-  border: 1px solid #C5C2C0;
+  border: 1px solid #CCC;
   border-radius: 9px;
 }
-.top-control .control input:hover,
-.top-control .control input:focus {
-  border: 1px solid #959290;
+.control input[type='text']:hover,
+.control input[type='text']:focus {
+  border: 1px solid #999;
 }
-.top-control .control select {
+.control select {
   margin-top: 5px;
   margin: 0;
   height: 18px;
   padding: 0;
   border: 1px solid #C5C2C0;
+}
+.top-button {
+  display: block;
+  float: left;
+  height: 44px;
+  width: 44px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  text-indent: -9999px;
+  background: url(../images/top-button-bg.png);
+  border: 1px solid #CCC;
+}
+.top-button:hover {
+  background: #FFF;
+  border: 1px solid #999;
+}
+.top-button span {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+}
+.top-button.portrait span {
+  background: url(../images/top-button-portrait.png);
+}
+.top-button.landscape span {
+  background: url(../images/top-button-landscape.png);
 }
 .text-container {
   padding: 4px;
@@ -877,29 +904,34 @@ body {
 .box-newImage .image-container canvas {
   max-height: 200px;
 }
-.top-bar-template-item {
+/*
+.top-bar-template-item{
   height: 52px;
   float: left;
   padding: 1px 2px;
   cursor: pointer;
 }
-.top-bar-template-item:hover {
+
+.top-bar-template-item:hover{
   background: #C5C2C0;
 }
-.top-bar-template-pic {
+
+.top-bar-template-pic{
   height: 40px;
 }
-.top-bar-template-pic img {
+
+.top-bar-template-pic img{
   height: 40px;
 }
-.top-bar-template-title {
+
+.top-bar-template-title{
   font-size: 11px;
   color: #555250;
   text-align: center;
   height: 12px;
   line-height: 12px;
 }
-#object-hover {
+*/#object-hover {
   position: absolute;
   border: 1px dashed #669966;
   z-index: 1000;
